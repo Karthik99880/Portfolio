@@ -1,0 +1,88 @@
+.handL,
+.handR {
+  animation: handBob 0.32s steps(2) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.handR {
+  animation-delay: 0.16s;
+}
+@keyframes handBob {
+  from { transform: translateY(0); }
+  to { transform: translateY(1.5px); }
+}
+
+.code > rect:not(.cursor) {
+  animation: codeFade 6s ease-in-out infinite;
+}
+.code > rect:not(.cursor):nth-child(3n + 1) { animation-delay: 0s; }
+.code > rect:not(.cursor):nth-child(3n + 2) { animation-delay: 2s; }
+.code > rect:not(.cursor):nth-child(3n) { animation-delay: 4s; }
+@keyframes codeFade {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.cursor {
+  animation: cursorBlink 1s steps(2) infinite;
+}
+@keyframes cursorBlink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.steam path {
+  animation: steamRise 4s ease-out infinite;
+}
+.steam path:nth-child(2) {
+  animation-delay: 2s;
+}
+@keyframes steamRise {
+  0% { transform: translateY(0); opacity: 0.7; }
+  100% { transform: translateY(-10px); opacity: 0; }
+}
+
+.notes > g {
+  animation: noteDrift 5s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.notes > g:nth-child(1) { animation-delay: 0s; }
+.notes > g:nth-child(2) { animation-delay: 1.6s; }
+.notes > g:nth-child(3) { animation-delay: 3.2s; }
+@keyframes noteDrift {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 0.9; }
+  85% { opacity: 0.9; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+
+.lampGlow {
+  animation: lampPulse 4s ease-in-out infinite alternate;
+}
+@keyframes lampPulse {
+  from { opacity: 0.85; }
+  to { opacity: 1; }
+}
+
+.globeSpin {
+  animation: globeSpin 30s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes globeSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handL,
+  .handR,
+  .code > rect:not(.cursor),
+  .cursor,
+  .steam path,
+  .notes > g,
+  .lampGlow,
+  .globeSpin {
+    animation: none;
+  }
+}

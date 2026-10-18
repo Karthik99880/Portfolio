@@ -1,0 +1,102 @@
+import type { Build, SectionHeading, Tool } from "./types";
+
+export const skillsHeading: SectionHeading = {
+  kicker: "skills",
+  heading: "How I actually use them",
+  lede: "Six things I've built, and what each one took. Pick one — the tools light up in the order I reached for them.",
+};
+
+// Order matters: this is the reading order of the typographic field.
+export const tools: Tool[] = [
+  { key: "ts", label: "TypeScript" },
+  { key: "java", label: "Java" },
+  { key: "aes", label: "AES" },
+  { key: "py", label: "Python" },
+  { key: "cpp", label: "C++" },
+  { key: "sql", label: "SQL" },
+  { key: "react", label: "React" },
+  { key: "rn", label: "React Native" },
+  { key: "next", label: "Next.js" },
+  { key: "redux", label: "Redux Toolkit" },
+  { key: "tanstack", label: "TanStack Query" },
+  { key: "radix", label: "Radix UI" },
+  { key: "tailwind", label: "Tailwind CSS" },
+  { key: "three", label: "Three.js" },
+  { key: "mediapipe", label: "MediaPipe" },
+  { key: "node", label: "Node.js" },
+  { key: "express", label: "Express.js" },
+  { key: "flask", label: "Flask" },
+  { key: "rest", label: "REST APIs" },
+  { key: "socket", label: "Socket.io" },
+  { key: "jwt", label: "JWT Auth" },
+  { key: "zod", label: "Zod" },
+  { key: "gemini", label: "Google Gemini" },
+  { key: "langgraph", label: "LangGraph.js" },
+  { key: "agentic", label: "Agentic workflows" },
+  { key: "pytorch", label: "PyTorch" },
+  { key: "sdxl", label: "Stable Diffusion XL" },
+  { key: "cuda", label: "CUDA" },
+  { key: "ocr", label: "OCR" },
+  { key: "sklearn", label: "Scikit-learn" },
+  { key: "pandas", label: "Pandas" },
+  { key: "numpy", label: "NumPy" },
+  { key: "mongo", label: "MongoDB" },
+  { key: "mysql", label: "MySQL" },
+  { key: "pg", label: "PostgreSQL" },
+  { key: "firebase", label: "Firebase" },
+  { key: "aws", label: "AWS" },
+  { key: "docker", label: "Docker" },
+  { key: "vercel", label: "Vercel" },
+  { key: "git", label: "Git" },
+  { key: "sonar", label: "SonarCloud" },
+  { key: "pw", label: "Playwright" },
+  { key: "testng", label: "TestNG" },
+  { key: "allure", label: "Allure" },
+  { key: "selenium", label: "Selenium" },
+  { key: "k6", label: "k6" },
+  { key: "locust", label: "Locust" },
+  { key: "tableau", label: "Tableau" },
+  { key: "powerbi", label: "Power BI" },
+  { key: "excel", label: "Excel" },
+];
+
+// Each build lists its tools in the order they were reached for — that order drives the sweep.
+// Résumé projects first; the internship appears once, generically, with no numbers.
+export const builds: Build[] = [
+  {
+    title: "A live F1 dashboard with a championship predictor",
+    why: "Live standings make the data layer the product. TanStack Query keeps the wall current without the UI ever flickering, and the predictor does the math the stats sites don't.",
+    where: "Karthik's Pit Wall · karthik-pit-wall.vercel.app",
+    tools: ["ts", "react", "tanstack", "radix", "rest", "git", "sonar", "vercel"],
+  },
+  {
+    title: "A 3D globe you steer with your hands",
+    why: "Gesture input fails the first time it lags. I rewrote the tracking pipeline so pinch-to-spin and two-hand zoom respond on the frame they happen.",
+    where: "Ultron Orb UI · open-source extension",
+    tools: ["ts", "next", "react", "three", "mediapipe"],
+  },
+  {
+    title: "A browser studio for a multi-gigabyte model",
+    why: "Inference is the bottleneck, so the web layer stays thin: Flask serves, PyTorch does the work, and the 4× upscaler runs as its own pass.",
+    where: "SDXL Image Studio · capstone",
+    tools: ["py", "pytorch", "sdxl", "cuda", "flask"],
+  },
+  {
+    title: "A chat app that stays private on a hostile network",
+    why: "No framework, no shortcuts: raw TCP sockets, a thread per client, and AES on every message so the wire never carries plaintext.",
+    where: "Encrypted Chat Application",
+    tools: ["java", "aes"],
+  },
+  {
+    title: "Production features on a live healthcare platform",
+    why: "Real users and real data change the job. Every model tool call gets validated, every real-time path gets a fallback, and every flow gets covered by automation before it ships.",
+    where: "Software engineering internship",
+    tools: ["node", "express", "socket", "jwt", "zod", "langgraph", "gemini", "mongo", "rn", "pw", "testng", "allure", "k6", "locust"],
+  },
+  {
+    title: "A dataset turned into something a manager reads",
+    why: "The chart is the deliverable. SQL and Pandas do the shaping; Tableau and Power BI are where the decision actually gets made.",
+    where: "Data analysis · coursework & certifications",
+    tools: ["sql", "mysql", "pg", "pandas", "numpy", "sklearn", "tableau", "powerbi", "excel"],
+  },
+];
