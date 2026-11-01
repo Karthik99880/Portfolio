@@ -177,6 +177,12 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
 
   useEffect(() => {
     const open = () => {
+      const card = cardRef.current;
+      if (card) {
+        if (lenis) lenis.scrollTo(card, { offset: -16, immediate: reduced });
+        else card.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
+        return;
+      }
       if (lenis) lenis.scrollTo(0);
       else window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
       openGame();
@@ -225,6 +231,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
       goTimer.current = window.setTimeout(() => {
         t0.current = performance.now();
         setGame("go");
+        requestAnimationFrame(() => (t0.current = performance.now()));
       }, 1300 + Math.random() * 2400);
       return;
     }
