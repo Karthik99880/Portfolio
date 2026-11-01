@@ -15,7 +15,7 @@ export type ValidationResult =
 export const LIMITS = {
   name: { min: 2, max: 80 },
   email: { max: 254 },
-  message: { min: 10, max: 2000 },
+  message: { min: 2, max: 2000 },
 } as const;
 
 const EMAIL_RE = /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[^\s@,;<>"]{2,}$/;

@@ -23,7 +23,7 @@ export const contact: ContactContent = {
   errors: {
     name: "No callsign. Tell me who's on the radio.",
     email: "Return channel looks wrong, so I couldn't reply.",
-    message: "Message too short to copy. A sentence will do.",
+    message: "Message too short to copy. Say a word or two.",
   },
   failure: "Didn't go through on my end. Use the direct line instead.",
 };

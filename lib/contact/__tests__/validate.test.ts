@@ -29,7 +29,8 @@ describe("validateContact", () => {
   });
 
   it("rejects short and long messages", () => {
-    expect(validateContact({ ...good, message: "too short" }).ok).toBe(false);
+    expect(validateContact({ ...good, message: "a" }).ok).toBe(false);
+    expect(validateContact({ ...good, message: "Hire you?" }).ok).toBe(true);
     expect(validateContact({ ...good, message: "m".repeat(2001) }).ok).toBe(false);
     expect(validateContact({ ...good, message: "m".repeat(2000) }).ok).toBe(true);
   });
