@@ -5,5 +5,5 @@ export const intro: IntroContent = {
   lead: "Hey, I'm",
   caption: ["Software engineer", "Full-stack + Applied AI"],
   bug: "1 error · 'i' is out of place",
-  fixed: "✓ fixed · 0 problems",
+  fixed: "fixed · 0 problems",
 };

@@ -31,16 +31,32 @@ export interface SectionHeading {
   lede?: string;
 }
 
+export interface ProofStat {
+  value: string;
+  count?: number;
+  unit?: string;
+  label: string;
+  accent?: boolean;
+}
+
 export interface OpeningContent {
   name: string;
   line: string;
   meta: string;
+  proof: ProofStat[];
   primaryCta: SiteLink;
   secondaryCta: SiteLink;
 }
 
+export interface AboutFact {
+  label: string;
+  value: string;
+  live?: boolean;
+}
+
 export interface AboutContent extends SectionHeading {
   paragraph: string;
+  facts: AboutFact[];
 }
 
 export interface ExperienceBullet {
@@ -54,6 +70,11 @@ export interface ExperienceRole {
   period: string;
   bullets: ExperienceBullet[];
   tags: string[];
+}
+
+export interface Education {
+  label: string;
+  text: string;
 }
 
 export interface Tool {
@@ -123,11 +144,69 @@ export interface AchievementsContent extends SectionHeading {
   certifications: LogEntry[];
 }
 
+export interface MusicContent {
+  humOff: string;
+  humOn: string;
+  playlistId: string;
+  listen: string;
+  playerLabel: string;
+  shuffle: string;
+  fullPlaylist: string;
+  close: string;
+}
+
+export interface HeroLines {
+  welcome: string;
+  backFromWork: string;
+  backFromContact: string;
+}
+
+export type ReactionGame ="ready" | "wait" | "go" | "result" | "early";
+
+export interface ReactionContent {
+  ask: string;
+  yes: string;
+  later: string;
+  title: string;
+  close: string;
+  hint: string;
+  now: string;
+  pad: Record<ReactionGame, [string, string]>;
+  early: string;
+  best: string;
+  verdicts: { under: number; text: string }[];
+  bestLabel: string;
+  triesLabel: string;
+  footerLink: string;
+}
+
+export type CompoundId = "soft" | "medium" | "hard";
+
+export interface Compound {
+  id: CompoundId;
+  key: string;
+  name: string;
+  ask: string;
+  color: string;
+  hint: string;
+}
+
+type RadioPhase = "idle" | "tx" | "done" | "err";
+
 export interface ContactContent extends SectionHeading {
+  navLabel: string;
   blurb: string;
-  labels: { name: string; email: string; message: string };
-  submitLabel: string;
-  sending: string;
-  success: string;
+  channel: string;
+  steps: { compound: string; name: string; email: string; message: string };
+  placeholders: { name: string; email: string };
+  compounds: Compound[];
+  info: { direct: string; base: string; baseValue: string; reply: string; replyValue: string };
+  status: Record<RadioPhase, string>;
+  transmit: Record<RadioPhase, string>;
+  pitWall: string;
+  lost: string;
+  idleLine: string;
+  reply: string;
+  errors: { name: string; email: string; message: string };
   failure: string;
 }

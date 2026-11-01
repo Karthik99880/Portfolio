@@ -1,88 +1,103 @@
-.handL,
-.handR {
-  animation: handBob 0.32s steps(2) infinite;
+.bob {
+  animation: bob 0.34s steps(2) infinite;
   transform-box: fill-box;
   transform-origin: center;
 }
-.handR {
-  animation-delay: 0.16s;
+.bob2 {
+  animation-delay: 0.17s;
 }
-@keyframes handBob {
+@keyframes bob {
   from { transform: translateY(0); }
   to { transform: translateY(1.5px); }
 }
 
-.code > rect:not(.cursor) {
-  animation: codeFade 6s ease-in-out infinite;
+.type {
+  clip-path: inset(0 100% 0 0);
+  animation: type 5s steps(28) infinite;
 }
-.code > rect:not(.cursor):nth-child(3n + 1) { animation-delay: 0s; }
-.code > rect:not(.cursor):nth-child(3n + 2) { animation-delay: 2s; }
-.code > rect:not(.cursor):nth-child(3n) { animation-delay: 4s; }
-@keyframes codeFade {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 1; }
+@keyframes type {
+  0% { clip-path: inset(0 100% 0 0); }
+  60%, 100% { clip-path: inset(0 0 0 0); }
 }
 
 .cursor {
   animation: cursorBlink 1s steps(2) infinite;
 }
 @keyframes cursorBlink {
-  from { opacity: 1; }
   to { opacity: 0; }
 }
 
-.steam path {
-  animation: steamRise 4s ease-out infinite;
+.glow {
+  animation: glow 3.4s ease-in-out infinite alternate;
 }
-.steam path:nth-child(2) {
-  animation-delay: 2s;
+@keyframes glow {
+  from { opacity: 0.35; }
+  to { opacity: 0.6; }
+}
+
+.steam {
+  animation: steamRise 3.6s ease-out infinite;
+}
+.steam + .steam {
+  animation-delay: 1.8s;
 }
 @keyframes steamRise {
   0% { transform: translateY(0); opacity: 0.7; }
-  100% { transform: translateY(-10px); opacity: 0; }
+  100% { transform: translateY(-12px); opacity: 0; }
 }
 
-.notes > g {
-  animation: noteDrift 5s infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+.twinkle {
+  animation: twinkle 2.4s ease-in-out infinite alternate;
 }
-.notes > g:nth-child(1) { animation-delay: 0s; }
-.notes > g:nth-child(2) { animation-delay: 1.6s; }
-.notes > g:nth-child(3) { animation-delay: 3.2s; }
-@keyframes noteDrift {
-  0% { transform: translateY(0); opacity: 0; }
-  15% { opacity: 0.9; }
-  85% { opacity: 0.9; }
-  100% { transform: translateY(-14px); opacity: 0; }
-}
-
-.lampGlow {
-  animation: lampPulse 4s ease-in-out infinite alternate;
-}
-@keyframes lampPulse {
-  from { opacity: 0.85; }
+@keyframes twinkle {
+  from { opacity: 0.3; }
   to { opacity: 1; }
 }
 
-.globeSpin {
-  animation: globeSpin 30s linear infinite;
+.turn {
+  transform-box: view-box;
+  transform-origin: 256px 330px;
+  transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fore {
+  transform-box: view-box;
+  transform-origin: 340px 252px;
+}
+.waving {
+  animation: wave 0.55s ease-in-out 3;
+}
+@keyframes wave {
+  0%, 100% { transform: rotate(4deg); }
+  30% { transform: rotate(-12deg); }
+  65% { transform: rotate(18deg); }
+}
+
+.blink {
   transform-box: fill-box;
   transform-origin: center;
+  animation: blink 4s infinite;
 }
-@keyframes globeSpin {
-  to { transform: rotate(360deg); }
+@keyframes blink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .handL,
-  .handR,
-  .code > rect:not(.cursor),
+  .bob,
   .cursor,
-  .steam path,
-  .notes > g,
-  .lampGlow,
-  .globeSpin {
+  .glow,
+  .steam,
+  .twinkle,
+  .waving,
+  .blink,
+  .type {
     animation: none;
+  }
+  .type {
+    clip-path: none;
+  }
+  .turn {
+    transition: none;
   }
 }

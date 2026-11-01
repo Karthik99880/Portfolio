@@ -1,134 +1,142 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
+import { inView } from "motion/react";
 import { Section, SectionHead } from "@/components/Section";
-import { builds, skillsHeading, tools } from "@/lib/content";
+import { builds, music, skillsHeading, tools } from "@/lib/content";
+import { humStore, pluck, useStore } from "@/lib/sound";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import styles from "./Skills.module.css";
 
-const TOUR_MS = 3800;
-const WORD_DELAY_S = 0.09;
-const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
-const buildCount = WORDS[builds.length] ?? String(builds.length);
-
-type WordStyle = CSSProperties & { "--d": string };
+const STEP_MS = 240;
+const short = (w: string) => w.split(" · ")[0];
+const slug = (w: string) => short(w).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const label = new Map(tools.map((t) => [t.key, t.label]));
+const git = tools.find((t) => t.key === "git");
+const keys = tools.filter((t) => t.key !== "git");
+const pitch = (key: string) => tools.findIndex((t) => t.key === key);
 
 export default function Skills() {
   const reduced = useReducedMotion();
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [current, setCurrent] = useState(0);
-  const [pinned, setPinned] = useState(false);
-  const [inView, setInView] = useState(false);
-  const [peek, setPeek] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [build, setBuild] = useState(0);
+  const [step, setStep] = useState(builds[0].tools.length);
+  const [played, setPlayed] = useState(false);
+  const [info, setInfo] = useState<string | null>(null);
+  const hum = useStore(humStore);
+
+  const b = builds[build];
+  const shown = reduced ? b.tools.length : step;
 
   useEffect(() => {
-    const el = document.getElementById("skills") ?? gridRef.current;
+    const el = rootRef.current;
     if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    return inView(el, () => {
+      setPlayed(true);
+      setStep(0);
+      return undefined;
+    }, { amount: 0.4 });
   }, []);
 
   useEffect(() => {
-    if (!inView || pinned || reduced) return;
-    const id = setInterval(() => setCurrent((c) => (c + 1) % builds.length), TOUR_MS);
-    return () => clearInterval(id);
-  }, [inView, pinned, reduced]);
+    if (!played || reduced || step >= b.tools.length) return;
+    const t = setTimeout(() => setStep((s) => s + 1), STEP_MS);
+    return () => clearTimeout(t);
+  }, [played, reduced, step, b.tools.length]);
 
-  const activeTools = builds[current].tools;
-  const peekLabel = peek ? tools.find((t) => t.key === peek)?.label : null;
-  const peekCount = peek ? builds.filter((b) => b.tools.includes(peek)).length : 0;
+  useEffect(() => {
+    if (hum && step >= 1 && step <= b.tools.length) pluck(pitch(b.tools[step - 1]));
+  }, [hum, step, b]);
+
+  const pick = (i: number) => {
+    setBuild(i);
+    setInfo(null);
+    setPlayed(true);
+    setStep(0);
+  };
+
+  const typed = b.tools.slice(0, shown).map((k) => label.get(k) ?? k);
+  const infoKey = info ? tools.find((t) => t.key === info) : null;
+  const usedIn = info ? builds.filter((x) => x.tools.includes(info)).map((x) => short(x.where)) : [];
+
+  const renderKey = (t: { key: string; label: string }, wide = false) => {
+    const n = b.tools.indexOf(t.key);
+    const lit = n !== -1 && n < shown;
+    return (
+      <button
+        key={t.key}
+        type="button"
+        aria-pressed={info === t.key}
+        className={`${styles.key} ${wide ? styles.wide : ""} ${lit ? styles.lit : ""} ${lit && played && !reduced ? styles.fresh : ""} ${info === t.key ? styles.sel : ""}`}
+        onClick={() => {
+          setInfo(info === t.key ? null : t.key);
+          if (hum) pluck(pitch(t.key));
+        }}
+      >
+        {t.label}
+      </button>
+    );
+  };
 
   return (
     <Section id="skills">
       <SectionHead id="skills" {...skillsHeading} />
-      <div
-        ref={gridRef}
-        className="grid grid-cols-[minmax(260px,340px)_minmax(0,1fr)] items-start gap-x-16 gap-y-6 max-[760px]:grid-cols-1 max-[760px]:gap-10"
-      >
-        <ul className="m-0 flex list-none flex-col p-0">
-          {builds.map((b, i) => {
-            const on = i === current;
-            const uses = peek !== null && !on && b.tools.includes(peek);
-            const panelId = `skills-build-${i}`;
-            return (
-              <li
-                key={b.title}
-                className={`${styles.brief} ${on ? styles.on : ""} ${uses ? styles.uses : ""}`}
-              >
-                <button
-                  type="button"
-                  className={styles.briefBtn}
-                  aria-expanded={on}
-                  aria-controls={panelId}
-                  onClick={() => {
-                    setPinned(true);
-                    setCurrent(i);
-                  }}
-                >
-                  {b.title}
-                </button>
-                <div id={panelId} className={styles.more} aria-hidden={!on}>
-                  <div>
-                    <p className="m-0 mb-3 max-w-[34ch] text-[15px] leading-[1.5] text-muted">{b.why}</p>
-                    <span className="mb-4 block font-mono text-[11px] tracking-[0.08em] text-accent">
-                      {b.where}
-                    </span>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+      <div ref={rootRef}>
+        <div className={styles.chips} role="group" aria-label="Builds">
+          {builds.map((x, i) => (
+            <button
+              key={x.title}
+              type="button"
+              aria-pressed={i === build}
+              className={`${styles.chip} ${i === build ? styles.on : ""}`}
+              onClick={() => pick(i)}
+            >
+              {short(x.where)}
+            </button>
+          ))}
+        </div>
 
-        <div>
-          <div
-            className="flex flex-wrap gap-[0.2em_0.8em] font-display text-[clamp(22px,3vw,36px)] leading-[1.2] font-semibold tracking-[-0.01em] text-balance"
-            aria-label="Tools I work with"
-          >
-            {tools.map((t) => {
-              const n = activeTools.indexOf(t.key);
-              const lit = n !== -1;
-              const style: WordStyle = {
-                "--d": lit && !reduced ? `${(n * WORD_DELAY_S).toFixed(2)}s` : "0s",
-              };
-              return (
-                <button
-                  key={t.key}
-                  type="button"
-                  className={`${styles.w} ${lit ? styles.lit : ""} ${peek === t.key ? styles.peek : ""}`}
-                  style={style}
-                  onMouseEnter={() => setPeek(t.key)}
-                  onMouseLeave={() => setPeek(null)}
-                  onFocus={() => setPeek(t.key)}
-                  onBlur={() => setPeek(null)}
-                >
-                  {t.label}
-                </button>
-              );
-            })}
-          </div>
-          <div
-            className="mt-6 min-h-5 font-mono text-[12px] tracking-[0.04em] text-muted"
-            aria-live="polite"
-          >
-            {peekLabel ? (
+        <div className={styles.prompt}>
+          <p className={styles.line} aria-hidden="true">
+            <span className="text-accent">~/{slug(b.where)} $</span> {typed.join(" + ")}
+            <span className={styles.caret} />
+          </p>
+          <p className="sr-only" aria-live="polite">
+            {shown >= b.tools.length ? `${short(b.where)}: ${b.tools.map((k) => label.get(k) ?? k).join(", ")}` : ""}
+          </p>
+          <p className={styles.why}>
+            {b.why} <span className="font-mono text-[11px] tracking-[0.08em] text-accent">{b.where}</span>
+          </p>
+        </div>
+
+        <div className={styles.board} role="group" aria-label="Tools">
+          {keys.map((t) => renderKey(t))}
+          {git ? renderKey(git, true) : null}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <p className={styles.info}>
+            {infoKey ? (
               <>
-                <b className="font-medium text-ink">{peekLabel}</b> ·{" "}
-                {peekCount
-                  ? `used in ${peekCount} of these ${buildCount}`
-                  : `in the toolbox, not in these ${buildCount}`}
+                <b className="font-medium text-ink">{infoKey.label}</b> ·{" "}
+                {usedIn.length ? `used in ${usedIn.join(", ")}` : "in the toolbox, not in a shipped build yet"}
               </>
             ) : (
-              <>
-                <b className="font-medium text-ink">{activeTools.length}</b> of {tools.length} · lit in
-                the order I reached for them
-              </>
+              "Lit keys are the build. Click any key to see where it shows up."
             )}
-          </div>
+          </p>
+          <button
+            type="button"
+            aria-pressed={hum}
+            onClick={() => humStore.set(!hum)}
+            className="mt-4 inline-flex min-h-11 cursor-pointer min-[761px]:min-h-9 items-center gap-2 rounded-full border border-line bg-transparent px-3.5 font-mono text-[11px] tracking-[0.1em] text-ink uppercase transition-colors hover:border-ink"
+          >
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 9v6h4l5 4V5L8 9H4z" />
+              {hum ? <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /> : <path d="M17 9l5 6M22 9l-5 6" />}
+            </svg>
+            {hum ? music.humOn : music.humOff}
+          </button>
         </div>
       </div>
     </Section>

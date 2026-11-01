@@ -10,9 +10,13 @@ export const achievements: AchievementsContent = {
     { label: "Research paper", detail: "Cross-Cultural Communication & Interaction" },
   ],
   certifications: [
-    { label: "Oracle Cloud Infrastructure", detail: "Certified Generative AI Professional, 2025" },
-    { label: "Coursera", detail: "Introduction to Data Analytics" },
-    { label: "Coursera", detail: "Data Visualization with Excel & Cognos" },
-    { label: "Edureka", detail: "Selenium Automation Testing" },
+    { label: "Oracle · 2025", detail: "OCI Certified Generative AI Professional" },
+    { label: "AWS Academy · 2024", detail: "Cloud Foundations" },
+    { label: "Coursera · 2024", detail: "Python for Data Science, AI & Development" },
+    { label: "Edureka · 2024", detail: "Selenium Certification Training" },
+    { label: "Coursera · 2024", detail: "Data Visualization & Dashboards with Excel and Cognos" },
+    { label: "Cisco · 2024", detail: "Cybersecurity Essentials" },
+    { label: "Coding Ninjas · 2024", detail: "Data Analysis with Spreadsheets" },
+    { label: "Coursera · 2023", detail: "Introduction to Data Analytics" },
   ],
 };

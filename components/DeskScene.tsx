@@ -1,6 +1,21 @@
 import styles from "./DeskScene.module.css";
 
-export default function DeskScene({ className }: { className?: string }) {
+export interface DeskPose {
+  facing: "back" | "front";
+  squash?: boolean;
+  waving?: boolean;
+  smiling?: boolean;
+}
+
+export default function DeskScene({
+  className,
+  pose = { facing: "back" },
+}: {
+  className?: string;
+  pose?: DeskPose;
+}) {
+  const { facing, squash, waving, smiling } = pose;
+  const turn = { transform: `scaleX(${squash ? 0.02 : 1})` };
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,260 +31,761 @@ export default function DeskScene({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <title id="desk-scene-title">Karthik at his desk — headphones on, code on the monitor, a silver-arrow poster on the wall</title>
-      <desc id="desk-scene-desc">Rear three-quarter illustration of Karthik typing at a desk with a dual-monitor setup, a mug of coffee, a desk lamp and a small globe.</desc>
+      <title id="desk-scene-title">
+        Karthik at his desk at dusk: headphones on, code on the monitor,
+        Hyderabad through the window
+      </title>
+      <desc id="desk-scene-desc">
+        Illustration of Karthik at a dual-monitor desk with a lamp, a globe, a
+        mug of coffee and a plant on the windowsill.
+      </desc>
+
       <defs>
-        <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="#e8c07a" stopOpacity="0.55" />
-          <stop offset="0.5" stopColor="#e8c07a" stopOpacity="0.2" />
-          <stop offset="1" stopColor="#e8c07a" stopOpacity="0" />
-        </radialGradient>
+        <clipPath id="desk-room">
+          <rect x="16" y="20" width="608" height="440" rx="22" />
+        </clipPath>
+        <clipPath id="desk-win">
+          <rect x="44" y="56" width="140" height="162" rx="4" />
+        </clipPath>
       </defs>
 
-      <g id="bg">
-        <rect x="0" y="392" width="640" height="88" fill="#edeae4" stroke="none" />
-        <line x1="0" y1="392" x2="640" y2="392" strokeWidth={1.5} />
-        <rect x="36" y="48" width="110" height="172" rx="2" fill="#dcff70" />
-        <line x1="91" y1="48" x2="91" y2="220" />
-        <line x1="36" y1="134" x2="146" y2="134" />
-        <rect x="30" y="220" width="122" height="7" rx="1" fill="#edeae4" strokeWidth={1.5} />
-        <ellipse cx="78" cy="190" rx="4" ry="9" transform="rotate(-32 78 190)" fill="#edeae4" strokeWidth={1.5} />
-        <ellipse cx="95" cy="190" rx="4" ry="9" transform="rotate(32 95 190)" fill="#edeae4" strokeWidth={1.5} />
-        <ellipse cx="86" cy="186" rx="4" ry="11" fill="#edeae4" strokeWidth={1.5} />
-        <polygon points="75,203 97,203 94,220 78,220" fill="#716c60" strokeWidth={1.5} />
-        <g transform="translate(200 44)">
-          <rect x="0" y="0" width="134" height="82" fill="#edeae4" strokeWidth={1.5} />
-          <g fill="#c7c2b7" stroke="none">
-            <path d="M12 10 L40 6 L52 14 L42 24 L38 38 L26 44 L16 30 L8 20 Z" />
-            <path d="M32 46 L44 44 L48 56 L40 74 L34 70 L28 56 Z" />
-            <path d="M60 10 L80 8 L84 18 L70 24 L60 22 Z" />
-            <path d="M60 28 L80 26 L86 42 L78 62 L68 62 L58 42 Z" />
-            <path d="M84 6 L122 4 L128 18 L118 32 L106 42 L94 34 L84 22 Z" />
-            <path d="M106 54 L122 52 L126 64 L112 68 L104 62 Z" />
-          </g>
-          <g fill="#181511" stroke="none">
-            <circle cx="4" cy="4" r="1.6" />
-            <circle cx="130" cy="4" r="1.6" />
-            <circle cx="4" cy="78" r="1.6" />
-            <circle cx="130" cy="78" r="1.6" />
-          </g>
-          <g fill="#2f9e55" stroke="none">
-            <circle cx="66" cy="12" r="2.4" />
-            <circle cx="100" cy="36" r="2.4" />
-            <circle cx="124" cy="18" r="2.4" />
-          </g>
-        </g>
-        <g id="poster">
-          <rect x="466" y="36" width="100" height="72" fill="#edeae4" />
-          <rect x="472" y="42" width="88" height="60" stroke="#c7c2b7" strokeWidth={1} />
-          <rect x="474" y="84" width="14" height="3" fill="#181511" stroke="none" />
-          <path
-            d="M486 86 L486 82 L502 80 L512 74 L528 72 L534 66 L544 66 L546 74 L552 76 L552 86 Z"
-            fill="#716c60"
-            strokeWidth={1.5}
-          />
-          <path d="M524 73 q8 -7 16 -1" strokeWidth={1.5} />
-          <rect x="550" y="63" width="6" height="12" fill="#181511" stroke="none" />
-          <circle cx="496" cy="86" r="6" fill="#181511" stroke="none" />
-          <circle cx="546" cy="86" r="6" fill="#181511" stroke="none" />
-          <text
-            x="516"
-            y="98"
-            fontFamily="'JetBrains Mono', ui-monospace, monospace"
-            fontSize="4.5"
-            letterSpacing="0.9"
-            textAnchor="middle"
-            fill="#716c60"
-            stroke="none"
-          >
-            SILVER ARROWS
-          </text>
-        </g>
-      </g>
-
-      <g id="furniture">
-        <ellipse cx="390" cy="398" rx="210" ry="5" fill="#c7c2b7" stroke="none" />
-        <rect x="176" y="312" width="8" height="80" fill="#edeae4" />
-        <rect x="596" y="312" width="8" height="80" fill="#edeae4" />
-        <polygon points="170,302 610,302 610,312 170,312" fill="#c7c2b7" />
-        <polygon points="180,262 600,262 610,302 170,302" fill="#edeae4" />
-      </g>
-
-      <g id="fx">
-        <polygon
-          id="lamp-glow"
-          className={styles.lampGlow}
-          points="548,208 566,204 606,292 500,300"
-          fill="#e8c07a"
-          fillOpacity="0.28"
+      <g clipPath="url(#desk-room)">
+        <rect
+          x="16"
+          y="20"
+          width="608"
+          height="440"
+          fill="#fbfdf5"
           stroke="none"
         />
-        <circle cx="556" cy="209" r="38" fill="url(#lampGlow)" stroke="none" />
-        <g id="steam" className={styles.steam} stroke="#716c60" strokeWidth={1.5}>
-          <path d="M191 273 C188 269 194 266 191 261" />
-          <path d="M198 274 C201 270 195 267 198 262" />
+        <rect
+          x="16"
+          y="20"
+          width="608"
+          height="8"
+          fill="#eef4dc"
+          stroke="none"
+        />
+        <line
+          x1="16"
+          y1="232"
+          x2="624"
+          y2="232"
+          stroke="#e3e8d2"
+          strokeWidth="1.5"
+        />
+        <rect
+          x="16"
+          y="372"
+          width="608"
+          height="90"
+          fill="#eef4dc"
+          stroke="none"
+        />
+        <line x1="16" y1="372" x2="624" y2="372" strokeWidth="1.5" />
+        <g stroke="#dfe5cb" strokeWidth="1.2">
+          <line x1="80" y1="372" x2="40" y2="460" />
+          <line x1="200" y1="372" x2="180" y2="460" />
+          <line x1="330" y1="372" x2="330" y2="460" />
+          <line x1="460" y1="372" x2="480" y2="460" />
+          <line x1="580" y1="372" x2="620" y2="460" />
         </g>
-        <g id="notes" className={styles.notes} strokeWidth={1.5}>
-          <g>
-            <circle cx="222" cy="184" r="2.3" fill="#181511" stroke="none" />
-            <line x1="224" y1="184" x2="224" y2="175" />
-            <path d="M224 175 q4 1 4 5" />
-          </g>
-          <g>
-            <circle cx="214" cy="170" r="2.3" fill="#181511" stroke="none" />
-            <line x1="216" y1="170" x2="216" y2="161" />
-            <path d="M216 161 q4 1 4 5" />
-          </g>
-          <g>
-            <circle cx="229" cy="161" r="2.3" fill="#181511" stroke="none" />
-            <line x1="231" y1="161" x2="231" y2="152" />
-            <path d="M231 152 q4 1 4 5" />
-          </g>
-        </g>
-      </g>
 
-      <g id="screens">
-        <rect x="292" y="144" width="162" height="114" rx="5" fill="#181511" />
-        <rect x="298" y="150" width="150" height="102" fill="#edeae4" stroke="none" />
-        <rect x="298" y="150" width="150" height="12" fill="#c7c2b7" stroke="none" />
-        <g fill="#181511" stroke="none">
-          <circle cx="305" cy="156" r="1.8" />
-          <circle cx="311" cy="156" r="1.8" />
-          <circle cx="317" cy="156" r="1.8" />
-        </g>
-        <line x1="310" y1="168" x2="310" y2="246" stroke="#c7c2b7" strokeWidth={1.5} />
-        <g id="screen-code" className={styles.code} stroke="none">
-          <rect x="316" y="170" width="36" height="4" rx="2" fill="#181511" />
-          <rect x="356" y="170" width="20" height="4" rx="2" fill="#2f9e55" />
-          <rect x="324" y="180" width="58" height="4" rx="2" fill="#181511" />
-          <rect x="324" y="190" width="26" height="4" rx="2" fill="#2f9e55" />
-          <rect x="354" y="190" width="46" height="4" rx="2" fill="#716c60" />
-          <rect x="332" y="200" width="50" height="4" rx="2" fill="#181511" />
-          <rect x="332" y="210" width="22" height="4" rx="2" fill="#181511" />
-          <rect x="358" y="210" width="40" height="4" rx="2" fill="#2f9e55" />
-          <rect x="324" y="220" width="44" height="4" rx="2" fill="#716c60" />
-          <rect x="316" y="230" width="18" height="4" rx="2" fill="#181511" />
-          <rect x="316" y="240" width="26" height="4" rx="2" fill="#2f9e55" />
-          <rect id="cursor" className={styles.cursor} x="346" y="238" width="2" height="8" fill="#2f9e55" />
-        </g>
-        <rect x="367" y="258" width="12" height="14" fill="#181511" stroke="none" />
-        <ellipse cx="373" cy="274" rx="30" ry="5" fill="#181511" stroke="none" />
-        <g transform="rotate(-6 462 175)">
-          <rect x="442" y="160" width="40" height="30" fill="#edeae4" strokeWidth={1.5} />
-          <text
-            x="462"
-            y="178"
-            fontFamily="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif"
-            fontSize="6.5"
-            textAnchor="middle"
-            fill="#181511"
+        <g clipPath="url(#desk-win)">
+          <rect
+            x="44"
+            y="56"
+            width="140"
+            height="162"
+            fill="#e9f7b8"
             stroke="none"
-          >
-            こんにちは
-          </text>
-        </g>
-        <g transform="translate(456 200) skewY(-4.7)">
-          <rect x="0" y="0" width="72" height="70" rx="2" fill="#181511" />
-          <rect x="5" y="5" width="62" height="60" fill="#edeae4" stroke="none" />
-          <rect x="5" y="5" width="62" height="8" fill="#c7c2b7" stroke="none" />
-          <g stroke="none">
-            <rect x="11" y="20" width="26" height="3" rx="1.5" fill="#181511" />
-            <rect x="11" y="27" width="40" height="3" rx="1.5" fill="#181511" />
-            <rect x="11" y="34" width="18" height="3" rx="1.5" fill="#2f9e55" />
-            <rect x="11" y="41" width="34" height="3" rx="1.5" fill="#181511" />
-            <rect x="11" y="48" width="22" height="3" rx="1.5" fill="#716c60" />
+          />
+          <rect
+            x="44"
+            y="56"
+            width="140"
+            height="70"
+            fill="#dcff70"
+            stroke="none"
+          />
+          <circle
+            cx="150"
+            cy="138"
+            r="18"
+            fill="#fbfdf5"
+            stroke="none"
+            opacity=".9"
+          />
+          <g fill="#cfd8b4" stroke="none">
+            <rect x="44" y="168" width="18" height="50" />
+            <rect x="64" y="156" width="14" height="62" />
+            <rect x="160" y="160" width="24" height="58" />
+            <rect x="140" y="176" width="18" height="42" />
+          </g>
+          <g fill="#9aa585" stroke="none">
+            <rect x="96" y="160" width="34" height="58" />
+            <rect x="92" y="150" width="6" height="68" />
+            <rect x="128" y="150" width="6" height="68" />
+            <path d="M92 150 q3 -10 6 0 z" />
+            <path d="M128 150 q3 -10 6 0 z" />
+            <path d="M104 160 q9 -14 18 0 z" />
+            <rect
+              x="104"
+              y="186"
+              width="18"
+              height="32"
+              rx="9"
+              fill="#e9f7b8"
+            />
+          </g>
+          <g fill="#fbfdf5" stroke="none">
+            <circle className={styles.twinkle} cx="70" cy="80" r="1.4" />
+            <circle
+              className={styles.twinkle}
+              cx="112"
+              cy="70"
+              r="1.2"
+              style={{ animationDelay: ".8s" }}
+            />
+            <circle
+              className={styles.twinkle}
+              cx="168"
+              cy="92"
+              r="1.3"
+              style={{ animationDelay: "1.6s" }}
+            />
           </g>
         </g>
-        <polygon points="448,270 536,264 544,282 440,288" fill="#edeae4" />
-        <polygon points="460,273 524,268 528,277 456,282" fill="#c7c2b7" stroke="none" />
-      </g>
+        <rect x="38" y="50" width="152" height="174" rx="6" />
+        <rect x="44" y="56" width="140" height="162" rx="4" />
+        <line x1="114" y1="56" x2="114" y2="218" />
+        <rect x="32" y="222" width="164" height="8" rx="2" fill="#fbfdf5" />
+        <path d="M150 222 L153 204 L169 204 L172 222 Z" fill="#1f7a3d" />
+        <path
+          d="M161 204 C 152 192, 150 182, 154 172 C 162 180, 164 192, 161 204 Z"
+          fill="#4fd67a"
+        />
+        <path
+          d="M161 204 C 170 194, 178 188, 182 178 C 172 178, 164 190, 161 204 Z"
+          fill="#4fd67a"
+        />
+        <path
+          d="M161 204 C 158 196, 146 194, 140 188 C 146 186, 156 192, 161 204 Z"
+          fill="#4fd67a"
+        />
 
-      <g id="props">
-        <g id="globe">
-          <ellipse cx="188" cy="264" rx="8" ry="2.5" fill="#181511" stroke="none" />
-          <line x1="188" y1="258" x2="188" y2="262" />
-          <path d="M174 245 A14 14 0 0 0 188 259" />
-          <circle cx="188" cy="245" r="12" fill="#edeae4" />
-          <g className={styles.globeSpin}>
-            <path d="M180 241 q4 -6 10 -3 q2 5 -3 8 q-6 1 -7 -5 z" fill="#c7c2b7" stroke="none" />
-            <path d="M190 249 q5 -2 7 3 q-2 4 -6 2 z" fill="#c7c2b7" stroke="none" />
-            <path d="M177 249 Q188 253 199 249" stroke="#c7c2b7" strokeWidth={1.5} />
+        <rect x="220" y="60" width="128" height="80" rx="3" fill="#fbfdf5" />
+        <g fill="#dfe5cb" stroke="none">
+          <path d="M232 72 L256 68 L266 76 L258 86 L254 98 L244 102 L236 90 L228 82 Z" />
+          <path d="M250 106 L260 104 L264 114 L258 130 L252 126 L246 114 Z" />
+          <path d="M276 72 L294 70 L298 80 L286 86 L276 84 Z" />
+          <path d="M276 90 L294 88 L300 102 L292 120 L282 120 L274 102 Z" />
+          <path d="M300 68 L334 66 L340 80 L330 94 L318 102 L308 94 L300 82 Z" />
+        </g>
+        <path
+          d="M262 92 Q 290 70 322 82"
+          stroke="#1f7a3d"
+          strokeWidth="1.2"
+          strokeDasharray="3 3"
+        />
+        <g fill="#1f7a3d" stroke="none">
+          <circle cx="262" cy="92" r="2.6" />
+          <circle cx="322" cy="82" r="2.6" />
+        </g>
+        <g fill="#181511" stroke="none">
+          <circle cx="224" cy="64" r="1.6" />
+          <circle cx="344" cy="64" r="1.6" />
+        </g>
+
+        <rect x="470" y="50" width="108" height="78" rx="2" fill="#fbfdf5" />
+        <rect
+          x="476"
+          y="56"
+          width="96"
+          height="66"
+          fill="#181511"
+          stroke="none"
+        />
+        <path
+          d="M486 102 L486 96 L506 94 L518 86 L536 84 L544 76 L556 76 L558 86 L564 88 L564 102 Z"
+          fill="#c7cdb5"
+          stroke="none"
+        />
+        <circle cx="498" cy="104" r="6" fill="#4fd67a" stroke="none" />
+        <circle cx="554" cy="104" r="6" fill="#4fd67a" stroke="none" />
+        <text
+          x="524"
+          y="117"
+          fontFamily="'JetBrains Mono', monospace"
+          fontSize="5"
+          letterSpacing="1"
+          textAnchor="middle"
+          fill="#dcff70"
+          stroke="none"
+        >
+          SILVER ARROWS
+        </text>
+
+        <polygon
+          points="548,206 568,202 612,300 498,306"
+          fill="#dcff70"
+          opacity=".35"
+          stroke="none"
+          className={styles.glow}
+        />
+        <ellipse
+          cx="388"
+          cy="252"
+          rx="150"
+          ry="22"
+          fill="#4fd67a"
+          opacity=".22"
+          stroke="none"
+          className={styles.glow}
+        />
+
+        <polygon points="166,262 608,262 618,300 156,300" fill="#e9dcc4" />
+        <g stroke="#d6c6a8" strokeWidth="1.2">
+          <path d="M200 270 q80 -3 160 2" />
+          <path d="M380 284 q90 -4 200 1" />
+          <path d="M180 290 q60 -2 120 1" />
+        </g>
+        <polygon points="156,300 618,300 618,310 156,310" fill="#c9b796" />
+        <rect x="172" y="310" width="9" height="62" fill="#c9b796" />
+        <rect x="596" y="310" width="9" height="62" fill="#c9b796" />
+        <ellipse
+          cx="388"
+          cy="378"
+          rx="230"
+          ry="6"
+          fill="#181511"
+          opacity=".08"
+          stroke="none"
+        />
+
+        <path
+          d="M388 262 C 390 300, 420 330, 470 372"
+          stroke="#716c60"
+          strokeWidth="1.5"
+        />
+        <rect x="296" y="138" width="184" height="124" rx="7" fill="#181511" />
+        <rect
+          x="303"
+          y="145"
+          width="170"
+          height="104"
+          rx="2"
+          fill="#12100e"
+          stroke="none"
+        />
+        <rect
+          x="303"
+          y="145"
+          width="170"
+          height="11"
+          fill="#1d1a16"
+          stroke="none"
+        />
+        <g fill="#716c60" stroke="none">
+          <circle cx="310" cy="150.5" r="1.8" />
+          <circle cx="316" cy="150.5" r="1.8" />
+          <circle cx="322" cy="150.5" r="1.8" />
+        </g>
+        <g
+          fontFamily="'JetBrains Mono', monospace"
+          fontSize="6.4"
+          stroke="none"
+        >
+          <text x="310" y="168" fill="#716c60">
+            1
+          </text>
+          <text x="320" y="168" fill="#4fd67a">
+            const
+          </text>
+          <text x="342" y="168" fill="#fbfdf5">
+            karthik = {"{"}
+          </text>
+          <text x="310" y="179" fill="#716c60">
+            2
+          </text>
+          <text x="328" y="179" fill="#fbfdf5">
+            role:
+          </text>
+          <text x="352" y="179" fill="#dcff70">
+            {'"full-stack + AI"'}
+          </text>
+          <text x="414" y="179" fill="#fbfdf5">
+            ,
+          </text>
+          <text x="310" y="190" fill="#716c60">
+            3
+          </text>
+          <text x="328" y="190" fill="#fbfdf5">
+            tests:
+          </text>
+          <text x="356" y="190" fill="#dcff70">
+            560
+          </text>
+          <text x="370" y="190" fill="#fbfdf5">
+            ,
+          </text>
+          <text x="310" y="201" fill="#716c60">
+            4
+          </text>
+          <text x="328" y="201" fill="#fbfdf5">
+            based:
+          </text>
+          <text x="356" y="201" fill="#dcff70">
+            {'"Hyderabad"'}
+          </text>
+          <text x="402" y="201" fill="#fbfdf5">
+            ,
+          </text>
+          <text x="310" y="212" fill="#716c60">
+            5
+          </text>
+          <text x="328" y="212" fill="#fbfdf5">
+            open:
+          </text>
+          <text x="352" y="212" fill="#4fd67a">
+            true
+          </text>
+          <text x="310" y="223" fill="#716c60">
+            6
+          </text>
+          <text x="320" y="223" fill="#fbfdf5">
+            {"}"};
+          </text>
+          <text x="310" y="238" fill="#716c60">
+            7
+          </text>
+          <g className={styles.type}>
+            <text x="320" y="238" fill="#a39c90">
+              {"// ship it, then test it"}
+            </text>
           </g>
         </g>
-        <rect x="186" y="277" width="16" height="16" rx="2" fill="#edeae4" />
-        <path d="M202 281 a4.5 4.5 0 0 1 0 9" />
-        <polygon points="254,278 386,278 392,294 248,294" fill="#c7c2b7" strokeWidth={1.5} />
-        <line x1="258" y1="283" x2="386" y2="283" strokeWidth={1.5} strokeDasharray="4 2.5" />
-        <line x1="256" y1="288" x2="388" y2="288" strokeWidth={1.5} strokeDasharray="4 2.5" />
-        <line x1="300" y1="292" x2="340" y2="292" strokeWidth={1.5} />
-        <ellipse cx="412" cy="288" rx="7" ry="5" fill="#edeae4" strokeWidth={1.5} />
-        <line x1="412" y1="283" x2="412" y2="288" strokeWidth={1.5} />
-        <ellipse cx="592" cy="266" rx="9" ry="3" fill="#181511" stroke="none" />
-        <path d="M592 265 L586 214 Q584 200 572 197 L562 195" strokeWidth={2.5} />
-        <g transform="translate(560 194) rotate(30)">
-          <polygon points="-11,0 11,0 17,16 -17,16" fill="#181511" />
-          <ellipse cx="0" cy="16" rx="15" ry="3" fill="#e8c07a" stroke="none" />
+        <rect
+          className={styles.cursor}
+          x="420"
+          y="232"
+          width="2.5"
+          height="8"
+          fill="#dcff70"
+          stroke="none"
+        />
+        <rect
+          x="378"
+          y="262"
+          width="20"
+          height="14"
+          fill="#181511"
+          stroke="none"
+        />
+        <ellipse
+          cx="388"
+          cy="278"
+          rx="34"
+          ry="5"
+          fill="#181511"
+          stroke="none"
+        />
+        <rect
+          x="452"
+          y="128"
+          width="22"
+          height="18"
+          fill="#dcff70"
+          transform="rotate(8 463 137)"
+        />
+        <text
+          x="463"
+          y="139"
+          fontFamily="'JetBrains Mono', monospace"
+          fontSize="4.6"
+          textAnchor="middle"
+          fill="#181511"
+          stroke="none"
+          transform="rotate(8 463 137)"
+        >
+          ship it
+        </text>
+
+        <g transform="translate(488 202) skewY(-4)">
+          <rect x="0" y="0" width="76" height="66" rx="3" fill="#181511" />
+          <rect
+            x="5"
+            y="5"
+            width="66"
+            height="56"
+            fill="#fbfdf5"
+            stroke="none"
+          />
+          <rect
+            x="5"
+            y="5"
+            width="66"
+            height="8"
+            fill="#e3e8d2"
+            stroke="none"
+          />
+          <g stroke="none">
+            <rect
+              x="11"
+              y="20"
+              width="22"
+              height="22"
+              rx="2"
+              fill="#4fd67a"
+              opacity=".5"
+            />
+            <rect x="38" y="20" width="27" height="4" rx="2" fill="#181511" />
+            <rect x="38" y="28" width="20" height="4" rx="2" fill="#716c60" />
+            <rect x="38" y="36" width="24" height="4" rx="2" fill="#1f7a3d" />
+            <rect x="11" y="48" width="54" height="4" rx="2" fill="#e3e8d2" />
+          </g>
         </g>
-        <rect x="548" y="260" width="34" height="8" rx="1" fill="#edeae4" strokeWidth={1.5} />
-        <rect x="551" y="252" width="30" height="8" rx="1" fill="#716c60" strokeWidth={1.5} />
-        <rect x="549" y="244" width="32" height="8" rx="1" fill="#edeae4" strokeWidth={1.5} />
-        <ellipse cx="86" cy="439" rx="19" ry="4" fill="#c7c2b7" stroke="none" />
-        <circle cx="86" cy="420" r="18" fill="#edeae4" />
-        <polygon points="86,412 91.7,416.1 89.5,422.9 82.5,422.9 80.3,416.1" fill="#181511" stroke="none" />
-        <g strokeWidth={1.5}>
+        <polygon points="478,272 566,266 574,284 470,290" fill="#fbfdf5" />
+
+        <polygon points="254,278 386,278 392,294 248,294" fill="#e3e8d2" />
+        <g stroke="#a39c90" strokeWidth="1.2">
+          <line x1="258" y1="283" x2="386" y2="283" strokeDasharray="4 2.5" />
+          <line x1="256" y1="288" x2="388" y2="288" strokeDasharray="4 2.5" />
+        </g>
+        <ellipse cx="414" cy="288" rx="7" ry="5" fill="#fbfdf5" />
+
+        <ellipse cx="596" cy="266" rx="9" ry="3" fill="#181511" stroke="none" />
+        <path
+          d="M596 265 L590 214 Q588 200 576 197 L566 195"
+          strokeWidth="2.6"
+        />
+        <g transform="translate(564 194) rotate(30)">
+          <polygon points="-11,0 11,0 17,16 -17,16" fill="#1f7a3d" />
+          <ellipse cx="0" cy="16" rx="15" ry="3" fill="#dcff70" stroke="none" />
+        </g>
+        <rect x="540" y="258" width="38" height="8" rx="1" fill="#4fd67a" />
+        <rect x="543" y="250" width="32" height="8" rx="1" fill="#fbfdf5" />
+        <rect x="541" y="242" width="34" height="8" rx="1" fill="#1f7a3d" />
+
+        <circle cx="190" cy="244" r="13" fill="#fbfdf5" />
+        <path
+          d="M182 240 q4 -6 10 -3 q2 5 -3 8 q-6 1 -7 -5 z"
+          fill="#4fd67a"
+          stroke="none"
+        />
+        <path
+          d="M191 248 q5 -2 7 3 q-2 4 -6 2 z"
+          fill="#4fd67a"
+          stroke="none"
+        />
+        <path d="M176 244 A14 14 0 0 0 190 258" stroke="#716c60" />
+        <line x1="190" y1="257" x2="190" y2="262" />
+        <ellipse
+          cx="190"
+          cy="264"
+          rx="9"
+          ry="2.6"
+          fill="#181511"
+          stroke="none"
+        />
+        <rect x="206" y="270" width="17" height="18" rx="3" fill="#1f7a3d" />
+        <path d="M223 274 a4.5 4.5 0 0 1 0 9" />
+        <path
+          className={styles.steam}
+          d="M211 265 C208 261 214 258 211 253"
+          stroke="#a39c90"
+          strokeWidth="1.5"
+        />
+        <path
+          className={styles.steam}
+          d="M218 266 C221 262 215 259 218 254"
+          stroke="#a39c90"
+          strokeWidth="1.5"
+        />
+
+        <circle cx="86" cy="420" r="18" fill="#fbfdf5" />
+        <polygon
+          points="86,412 91.7,416.1 89.5,422.9 82.5,422.9 80.3,416.1"
+          fill="#181511"
+          stroke="none"
+        />
+        <g strokeWidth="1.4">
           <line x1="86" y1="412" x2="86" y2="402" />
           <line x1="91.7" y1="416.1" x2="103.1" y2="412.4" />
           <line x1="89.5" y1="422.9" x2="96.6" y2="434.6" />
           <line x1="82.5" y1="422.9" x2="75.4" y2="434.6" />
           <line x1="80.3" y1="416.1" x2="68.9" y2="412.4" />
         </g>
-        <ellipse cx="128" cy="447" rx="13" ry="3" fill="#c7c2b7" stroke="none" />
-        <g transform="translate(166 298) rotate(15)">
-          <rect x="-3" y="0" width="6" height="54" rx="3" fill="#181511" stroke="none" />
-          <path d="M-8 50 L8 50 L9 130 Q9 148 0 150 Q-9 148 -9 130 Z" fill="#edeae4" />
-          <path d="M-8 50 L0 64 L8 50" strokeWidth={1.5} />
+        <ellipse
+          cx="86"
+          cy="440"
+          rx="18"
+          ry="3.5"
+          fill="#181511"
+          opacity=".1"
+          stroke="none"
+        />
+        <g transform="translate(150 298) rotate(15)">
+          <rect
+            x="-3"
+            y="0"
+            width="6"
+            height="54"
+            rx="3"
+            fill="#181511"
+            stroke="none"
+          />
+          <path
+            d="M-8 50 L8 50 L9 130 Q9 148 0 150 Q-9 148 -9 130 Z"
+            fill="#e9dcc4"
+          />
+          <path d="M-8 50 L0 64 L8 50" strokeWidth="1.4" />
+          <line
+            x1="0"
+            y1="70"
+            x2="0"
+            y2="140"
+            stroke="#d6c6a8"
+            strokeWidth="1.2"
+          />
         </g>
-      </g>
 
-      <g id="person">
-        <ellipse cx="256" cy="446" rx="66" ry="8" fill="#c7c2b7" stroke="none" />
-        <rect x="248" y="212" width="16" height="40" rx="5" fill="#edeae4" />
-        <path d="M206 274 C206 256 222 248 240 248 L272 248 C290 248 306 256 306 274 L306 312 L206 312 Z" fill="#4fd67a" />
-        <path d="M244 250 Q256 258 268 250" strokeWidth={1.5} />
-        <circle cx="256" cy="208" r="20" fill="#181511" />
-        <ellipse cx="276" cy="210" rx="3.5" ry="10" fill="#2f9e55" strokeWidth={1.5} />
-        <path d="M240 201 C239 180 273 178 274 199" stroke="#2f9e55" strokeWidth={4.5} />
-        <ellipse cx="240" cy="212" rx="8" ry="11.5" fill="#2f9e55" strokeWidth={1.5} />
-        <polyline points="216,262 210,298 274,287" strokeWidth={18} />
-        <polyline points="216,262 210,298 274,287" stroke="#4fd67a" strokeWidth={14} />
-        <ellipse id="hand-l" className={styles.handL} cx="274" cy="287" rx="7" ry="6" fill="#edeae4" strokeWidth={1.5} />
-        <polyline points="298,262 322,298 350,286" strokeWidth={18} />
-        <polyline points="298,262 322,298 350,286" stroke="#4fd67a" strokeWidth={14} />
-        <ellipse id="hand-r" className={styles.handR} cx="350" cy="286" rx="8" ry="6" fill="#edeae4" strokeWidth={1.5} />
-        <g id="chair">
-          <rect x="212" y="360" width="88" height="16" rx="5" fill="#edeae4" />
-          <rect x="203.5" y="320" width="3.5" height="42" fill="#181511" stroke="none" />
-          <rect x="305" y="320" width="3.5" height="42" fill="#181511" stroke="none" />
-          <rect x="196" y="316" width="18" height="6" rx="3" fill="#181511" stroke="none" />
-          <rect x="298" y="316" width="18" height="6" rx="3" fill="#181511" stroke="none" />
-          <rect x="222" y="304" width="68" height="72" rx="9" fill="#edeae4" />
-          <path d="M228 340 Q256 336 284 340" strokeWidth={1.5} />
-          <rect x="252" y="376" width="8" height="40" fill="#181511" stroke="none" />
-          <g strokeWidth={4}>
-            <line x1="256" y1="418" x2="208" y2="434" />
-            <line x1="256" y1="418" x2="238" y2="446" />
-            <line x1="256" y1="418" x2="274" y2="446" />
-            <line x1="256" y1="418" x2="304" y2="434" />
+        <ellipse
+          cx="256"
+          cy="448"
+          rx="66"
+          ry="7"
+          fill="#181511"
+          opacity=".1"
+          stroke="none"
+        />
+
+        {facing === "front" ? (
+          <g className={styles.turn} style={turn}>
+            <rect
+              x="222"
+              y="250"
+              width="68"
+              height="76"
+              rx="10"
+              fill="#2a2621"
+            />
+            <rect
+              x="212"
+              y="346"
+              width="88"
+              height="16"
+              rx="5"
+              fill="#2a2621"
+            />
+            <path d="M230 344 L228 404" strokeWidth="19" />
+            <path d="M282 344 L284 404" strokeWidth="19" />
+            <path d="M230 344 L228 404" stroke="#3f4a5c" strokeWidth="15.5" />
+            <path d="M282 344 L284 404" stroke="#3f4a5c" strokeWidth="15.5" />
+            <ellipse cx="224" cy="410" rx="14" ry="6" fill="#fbfdf5" />
+            <ellipse cx="288" cy="410" rx="14" ry="6" fill="#fbfdf5" />
+            <rect
+              x="248"
+              y="214"
+              width="16"
+              height="38"
+              rx="5"
+              fill="#e8c9a8"
+            />
+            <path
+              d="M206 276 C206 256 222 248 240 248 L272 248 C290 248 306 256 306 276 L308 350 L204 350 Z"
+              fill="#4fd67a"
+            />
+            <path d="M240 250 Q256 268 272 250" strokeWidth="1.4" />
+            <line x1="250" y1="262" x2="249" y2="280" strokeWidth="1.4" />
+            <line x1="262" y1="262" x2="263" y2="280" strokeWidth="1.4" />
+            <circle cx="249" cy="281" r="1.6" fill="#fbfdf5" strokeWidth="1" />
+            <circle cx="263" cy="281" r="1.6" fill="#fbfdf5" strokeWidth="1" />
+            <path
+              d="M228 318 L284 318 L290 342 L222 342 Z"
+              strokeWidth="1.4"
+              fill="#3cb865"
+            />
+            <polyline points="209,266 200,304 236,332" strokeWidth="17" />
+            <polyline
+              points="209,266 200,304 236,332"
+              stroke="#4fd67a"
+              strokeWidth="13.5"
+            />
+            <ellipse cx="239" cy="333" rx="8" ry="6" fill="#e8c9a8" />
+            <polyline points="303,266 340,252" strokeWidth="17" />
+            <polyline
+              points="303,266 340,252"
+              stroke="#4fd67a"
+              strokeWidth="13.5"
+            />
+            <circle cx="340" cy="252" r="7.6" fill="#4fd67a" stroke="none" />
+            <g className={`${styles.fore} ${waving ? styles.waving : ""}`}>
+              <polyline points="340,252 348,212" strokeWidth="17" />
+              <polyline
+                points="340,252 348,212"
+                stroke="#4fd67a"
+                strokeWidth="13.5"
+              />
+              <path
+                d="M341 210 C 340 200, 343 192, 348 192 C 354 192, 357 199, 356 208 C 355 214, 345 215, 341 210 Z"
+                fill="#e8c9a8"
+              />
+              <path d="M341 206 C 336 205, 334 200, 337 197" fill="#e8c9a8" />
+              <path
+                d="M346 193 L346 187 M350 192 L351 186 M354 194 L356 189"
+                strokeWidth="1.4"
+              />
+            </g>
+            <circle cx="256" cy="208" r="20" fill="#e8c9a8" />
+            <path
+              d="M236 205 C235 184 277 184 276 205 C270 196 262 193 252 196 C246 197 240 200 236 205 Z"
+              fill="#181511"
+            />
+            <path
+              d="M235 203 C235 178 277 178 277 203"
+              stroke="#1f7a3d"
+              strokeWidth="4.5"
+            />
+            <ellipse cx="236" cy="211" rx="5" ry="9.5" fill="#1f7a3d" />
+            <ellipse cx="276" cy="211" rx="5" ry="9.5" fill="#1f7a3d" />
+            <g fill="#181511" stroke="none">
+              <ellipse
+                className={styles.blink}
+                cx="249"
+                cy="209"
+                rx="2"
+                ry="2.6"
+              />
+              <ellipse
+                className={styles.blink}
+                cx="263"
+                cy="209"
+                rx="2"
+                ry="2.6"
+              />
+            </g>
+            <path d="M245 203 l6 -1.5 M261 201.5 l6 1.5" strokeWidth="1.4" />
+            <path
+              d={
+                smiling
+                  ? "M248 216 Q256 225 264 216"
+                  : "M250 218 Q256 220 262 218"
+              }
+              strokeWidth="1.8"
+            />
+            {smiling ? (
+              <g fill="#e89a86" stroke="none" opacity=".7">
+                <ellipse cx="244" cy="216" rx="3" ry="1.6" />
+                <ellipse cx="268" cy="216" rx="3" ry="1.6" />
+              </g>
+            ) : null}
           </g>
-          <circle cx="256" cy="418" r="5" fill="#181511" stroke="none" />
-          <g fill="#181511" stroke="none">
-            <circle cx="206" cy="436" r="4" />
-            <circle cx="237" cy="448" r="4" />
-            <circle cx="275" cy="448" r="4" />
-            <circle cx="306" cy="436" r="4" />
+        ) : (
+          <g className={styles.turn} style={turn}>
+            <polyline points="214,264 202,300 250,286" strokeWidth="17" />
+            <polyline
+              points="214,264 202,300 250,286"
+              stroke="#4fd67a"
+              strokeWidth="13.5"
+            />
+            <polyline points="298,264 322,300 352,286" strokeWidth="17" />
+            <polyline
+              points="298,264 322,300 352,286"
+              stroke="#4fd67a"
+              strokeWidth="13.5"
+            />
+            <ellipse
+              className={`${styles.bob} ${styles.bob2}`}
+              cx="354"
+              cy="286"
+              rx="8"
+              ry="6"
+              fill="#e8c9a8"
+            />
+            <rect
+              x="248"
+              y="212"
+              width="16"
+              height="40"
+              rx="5"
+              fill="#e8c9a8"
+            />
+            <path
+              d="M206 274 C206 256 222 248 240 248 L272 248 C290 248 306 256 306 274 L306 312 L206 312 Z"
+              fill="#4fd67a"
+            />
+            <path
+              d="M214 262 C224 270 240 266 248 252"
+              stroke="#3cb865"
+              strokeWidth="1.4"
+            />
+            <path d="M244 250 Q256 258 268 250" strokeWidth="1.4" />
+            <circle cx="256" cy="208" r="20" fill="#181511" />
+            <path d="M242 198 q6 -8 14 -6" stroke="#3a352d" strokeWidth="1.4" />
+            <path
+              d="M240 201 C239 180 273 178 274 199"
+              stroke="#1f7a3d"
+              strokeWidth="4.5"
+            />
+            <ellipse cx="240" cy="212" rx="8" ry="11.5" fill="#1f7a3d" />
+            <ellipse cx="276" cy="210" rx="3.5" ry="10" fill="#1f7a3d" />
+            <path
+              d="M240 223 C 236 240, 250 250, 262 262"
+              stroke="#716c60"
+              strokeWidth="1.2"
+            />
+            <rect
+              x="212"
+              y="360"
+              width="88"
+              height="16"
+              rx="5"
+              fill="#2a2621"
+            />
+            <rect
+              x="222"
+              y="304"
+              width="68"
+              height="72"
+              rx="10"
+              fill="#2a2621"
+            />
+            <path
+              d="M230 316 Q256 312 282 316"
+              stroke="#3f3a32"
+              strokeWidth="1.4"
+            />
+            <path
+              d="M230 330 Q256 326 282 330"
+              stroke="#3f3a32"
+              strokeWidth="1.4"
+            />
           </g>
+        )}
+        <rect
+          x="252"
+          y="376"
+          width="8"
+          height="40"
+          fill="#181511"
+          stroke="none"
+        />
+        <g strokeWidth="4">
+          <line x1="256" y1="418" x2="208" y2="434" />
+          <line x1="256" y1="418" x2="238" y2="446" />
+          <line x1="256" y1="418" x2="274" y2="446" />
+          <line x1="256" y1="418" x2="304" y2="434" />
+        </g>
+        <g fill="#181511" stroke="none">
+          <circle cx="256" cy="418" r="5" />
+          <circle cx="206" cy="436" r="4" />
+          <circle cx="237" cy="448" r="4" />
+          <circle cx="275" cy="448" r="4" />
+          <circle cx="306" cy="436" r="4" />
         </g>
       </g>
+      <rect x="16" y="20" width="608" height="440" rx="22" strokeWidth="2" />
     </svg>
   );
 }

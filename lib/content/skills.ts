@@ -3,7 +3,7 @@ import type { Build, SectionHeading, Tool } from "./types";
 export const skillsHeading: SectionHeading = {
   kicker: "skills",
   heading: "How I actually use them",
-  lede: "Six things I've built, and what each one took. Pick one — the tools light up in the order I reached for them.",
+  lede: "Six things I've built, and what each one took. Pick one and the tools light up in the order I reached for them.",
 };
 
 // Order matters: this is the reading order of the typographic field.
@@ -60,7 +60,7 @@ export const tools: Tool[] = [
   { key: "excel", label: "Excel" },
 ];
 
-// Each build lists its tools in the order they were reached for — that order drives the sweep.
+// Each build lists its tools in the order they were reached for, and that order drives the sweep.
 // Résumé projects first; the internship appears once, generically, with no numbers.
 export const builds: Build[] = [
   {

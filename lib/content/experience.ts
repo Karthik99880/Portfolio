@@ -1,9 +1,11 @@
-import type { ExperienceRole, SectionHeading } from "./types";
+import type { Education, ExperienceRole, SectionHeading } from "./types";
 
 export const experienceHeading: SectionHeading = {
   kicker: "experience",
   heading: "Where I've worked",
 };
+
+export const education: Education = { label: "Education", text: "B.Tech, Computer Science & Technology · VIT-AP University · 2022 – 2026 · CGPA 8.55" };
 
 // Exactly what the résumé says, development first, QA last. Not a showcase.
 export const experience: ExperienceRole[] = [
@@ -18,7 +20,7 @@ export const experience: ExperienceRole[] = [
       },
       {
         lead: "Real-time features",
-        text: "Developed blood-donation request and chat features (Socket.io) in the patient app — live request tracking, geocoding-based donor matching and push notifications.",
+        text: "Developed blood-donation request and chat features (Socket.io) in the patient app: live request tracking, geocoding-based donor matching and push notifications.",
       },
       {
         lead: "Test automation & QA",

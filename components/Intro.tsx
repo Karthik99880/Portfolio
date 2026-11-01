@@ -12,7 +12,9 @@ type Phase = "idle" | "greet" | "name" | "hiding" | "done";
 
 const STORAGE_KEY = "intro-played";
 const FADE_MS = 600;
-const STEP_MS = 400;
+const STEP_MS = 850;
+const NAME_HOLD_MS = 7000;
+const SCROLL_KEYS = [" ", "ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End"];
 const LIME = "#dcff70";
 const INK = "#0c0a08";
 const words = [...intro.greetings.slice(0, 4), intro.lead];
@@ -37,7 +39,8 @@ export default function Intro() {
   const [shrink, setShrink] = useState<{ x: number; y: number; scale: number } | null>(null);
   const timers = useRef<number[]>([]);
   const cover = useRef<HTMLDivElement>(null);
-  const { setStage } = useIntro();
+  const leaving = useRef(false);
+  const { stage, setStage } = useIntro();
 
   const px = useSpring(0, { stiffness: 60, damping: 18 });
   const py = useSpring(0, { stiffness: 60, damping: 18 });
@@ -54,7 +57,10 @@ export default function Intro() {
   }, []);
 
   const finish = useCallback(() => {
+    if (leaving.current) return;
+    leaving.current = true;
     clearAll();
+    window.scrollTo({ top: 0, behavior: "instant" });
     markPlayed();
     // Shapes shrink onto the hero ribbon; both share the 1280x800 box, so one uniform scale lines them up.
     const from = cover.current?.getBoundingClientRect();
@@ -95,11 +101,31 @@ export default function Intro() {
     at(0, () => setStage("playing"));
     at(450, () => setPhase("greet"));
     for (let i = 1; i < words.length; i++) at(450 + i * STEP_MS, () => setStep(i));
-    const named = 450 + (words.length - 1) * STEP_MS + 250;
+    const named = 450 + (words.length - 1) * STEP_MS + 700;
     at(named, () => setPhase("name"));
-    at(named + 4600, finish);
+    at(named + NAME_HOLD_MS, finish);
     return clearAll;
-  }, [clearAll, finish, setStage]);
+  }, [clearAll, setStage, finish]);
+
+  // Any scroll attempt while the intro covers the page enters the site at the top instead of scrolling it underneath.
+  useEffect(() => {
+    if (stage !== "playing") return;
+    const block = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      finish();
+    };
+    const key = (e: KeyboardEvent) => SCROLL_KEYS.includes(e.key) && block(e);
+    const opts = { passive: false, capture: true };
+    window.addEventListener("wheel", block, opts);
+    window.addEventListener("touchmove", block, opts);
+    window.addEventListener("keydown", key, true);
+    return () => {
+      window.removeEventListener("wheel", block, opts);
+      window.removeEventListener("touchmove", block, opts);
+      window.removeEventListener("keydown", key, true);
+    };
+  }, [stage, finish]);
 
   if (phase === "done") return null;
 
@@ -139,7 +165,7 @@ export default function Intro() {
 
         <div
           ref={cover}
-          className="absolute top-1/2 left-1/2 aspect-[1280/800] w-[max(100vw,160vh)] -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 aspect-[1280/800] w-[max(100vw,160lvh)] -translate-x-1/2 -translate-y-1/2"
         >
           <motion.svg
             viewBox="0 0 1280 800"
@@ -167,7 +193,7 @@ export default function Intro() {
           </motion.svg>
         </div>
 
-        <div className="absolute bottom-[clamp(96px,12vh,128px)] left-[clamp(20px,6vw,72px)] flex flex-col gap-5">
+        <div className="absolute bottom-[clamp(96px,12svh,128px)] max-[699px]:bottom-[132px] left-[clamp(20px,6vw,72px)] flex flex-col gap-5">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: phase === "name" ? 1 : 0 }}
@@ -179,10 +205,14 @@ export default function Intro() {
             {intro.caption[1]}
           </motion.p>
           <div className="display-xl">
-            <div className="h-[1.15em] overflow-hidden">
+            <motion.div
+              className="h-[1.15em] overflow-hidden"
+              animate={phase === "hiding" ? { opacity: 0, y: "0.4em" } : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+            >
               <motion.div
                 animate={{ y: `${step * -1.15}em` }}
-                transition={{ type: "spring", stiffness: 320, damping: 18 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
                 {words.map((w) => (
                   <div key={w} className="h-[1.15em] leading-[1.15] whitespace-nowrap">
@@ -190,7 +220,7 @@ export default function Intro() {
                   </div>
                 ))}
               </motion.div>
-            </div>
+            </motion.div>
             <div className="min-h-[1em]">
               {phase === "name" ? <NameDrop name={opening.name} width={heroWidth} /> : null}
             </div>
@@ -202,7 +232,7 @@ export default function Intro() {
           animate={{ scale: named ? 1 : 0 }}
           transition={pop}
           onClick={poke}
-          className="absolute top-[58%] right-[clamp(24px,18vw,320px)] size-[clamp(84px,9vw,120px)] cursor-pointer"
+          className="absolute top-[58%] max-[699px]:top-[24%] right-[clamp(24px,18vw,320px)] size-[clamp(84px,9vw,120px)] cursor-pointer"
         >
           <svg viewBox="0 0 120 120" className={`${styles.bob} size-full overflow-visible`}>
             <circle cx="60" cy="60" r="48" fill={LIME} stroke={INK} strokeWidth="5" />
@@ -231,7 +261,7 @@ export default function Intro() {
         <button
           type="button"
           onClick={finish}
-          className="group fixed right-[clamp(20px,5vw,64px)] bottom-[clamp(20px,5vh,56px)] z-[51] inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-full bg-void px-6 font-mono text-[12px] tracking-[0.12em] text-[#dcff70] uppercase"
+          className="group fixed right-[clamp(20px,5vw,64px)] bottom-[clamp(20px,5svh,56px)] z-[51] inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-full bg-void px-6 font-mono text-[12px] tracking-[0.12em] text-[#dcff70] uppercase"
         >
           {phase === "name" ? "Come in" : "Skip"}
           <svg

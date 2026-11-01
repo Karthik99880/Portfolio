@@ -1,6 +1,6 @@
 "use server";
 
-import { siteConfig } from "@/lib/content";
+import { contact, siteConfig } from "@/lib/content";
 import { validateContact, type FieldErrors } from "@/lib/contact/validate";
 
 export type ContactState =
@@ -31,6 +31,7 @@ export async function sendMessage(_prev: ContactState, formData: FormData): Prom
   }
 
   const { name, email, message } = result.data;
+  const compound = contact.compounds.find((c) => c.id === formData.get("compound")) ?? contact.compounds[1];
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -39,8 +40,8 @@ export async function sendMessage(_prev: ContactState, formData: FormData): Prom
         from: process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
         to: [process.env.CONTACT_TO_EMAIL ?? siteConfig.email],
         reply_to: email,
-        subject: `Portfolio message from ${name}`,
-        text: `${message}\n\n— ${name} <${email}>`,
+        subject: `[${compound.name} · ${compound.ask}] Portfolio message from ${name}`,
+        text: `${message}\n\nFrom ${name} <${email}>\nCompound: ${compound.name} (${compound.ask})`,
       }),
     });
     if (!res.ok) {

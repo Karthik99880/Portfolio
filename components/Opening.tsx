@@ -1,14 +1,17 @@
-import DeskScene from "@/components/DeskScene";
+import DeskHello from "@/components/DeskHello";
 import { HeroName } from "@/components/IntroHandoff";
+import ProofStrip from "@/components/ProofStrip";
 import { HeroRibbon } from "@/components/Ribbon";
-import { opening } from "@/lib/content";
+import { music, opening } from "@/lib/content";
+import { getPlaylistTracks } from "@/lib/spotify";
 
-export default function Opening() {
+export default async function Opening() {
+  const tracks = await getPlaylistTracks(music.playlistId);
   return (
     <section
       id="opening"
       aria-labelledby="opening-heading"
-      className="pt-[clamp(40px,7vw,88px)] pb-[clamp(72px,10vw,128px)]"
+      className="overflow-x-clip pt-[clamp(96px,11vw,128px)] pb-[clamp(56px,8vw,96px)]"
     >
       <div className="container">
         <div className="grid items-center gap-x-12 gap-y-14 min-[900px]:grid-cols-[1.05fr_1fr]">
@@ -35,9 +38,10 @@ export default function Opening() {
           </div>
           <div className="relative w-full max-w-[520px] min-[900px]:max-w-[560px] min-[900px]:justify-self-end">
             <HeroRibbon />
-            <DeskScene className="relative w-full" />
+            <DeskHello tracks={tracks} />
           </div>
         </div>
+        <ProofStrip stats={opening.proof} />
       </div>
     </section>
   );

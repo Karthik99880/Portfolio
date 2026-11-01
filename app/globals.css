@@ -16,6 +16,8 @@
   --color-line: #d5dbc3;
   --color-accent: #1f7a3d;
   --color-void: #0c0a08;
+  --color-lime: #dcff70;
+  --color-leaf: #4fd67a;
 
   --color-paper-dark: #15120f;
   --color-line-dark: #2a2621;
@@ -34,6 +36,8 @@
   html {
     background: var(--color-canvas);
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
@@ -86,6 +90,7 @@
 
   .section {
     padding-block: clamp(88px, 12vw, 136px);
+    scroll-margin-top: 70px;
   }
 
   .section--dark {
@@ -117,6 +122,7 @@
     height: 1px;
     background: currentColor;
     flex: none;
+    transform-origin: left;
   }
 
   .display-xl {
@@ -141,6 +147,30 @@
   @media (prefers-reduced-motion: no-preference) {
     .name-wobble:hover .name-i {
       animation: name-wobble 0.7s ease-in-out;
+    }
+  }
+
+  @keyframes radio-blink {
+    50% {
+      opacity: 0.25;
+    }
+  }
+
+  @keyframes radio-line {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+
+  @keyframes status-pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    to {
+      transform: scale(2.6);
+      opacity: 0;
     }
   }
 
@@ -208,25 +238,9 @@
   }
 }
 
-[data-reveal="out"] {
-  opacity: 0;
-  transform: translateY(16px);
-}
-[data-reveal="in"] {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  [data-reveal="out"] {
-    opacity: 1;
-    transform: none;
   }
   *,
   *::before,

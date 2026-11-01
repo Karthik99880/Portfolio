@@ -1,60 +1,70 @@
-import type { Ref } from "react";
+"use client";
+
 import type { Project } from "@/lib/content";
 import { TagList } from "@/components/Tag";
-import { PitWallVisual } from "@/components/visuals/PitWallVisual";
-import { OrbVisual } from "@/components/visuals/OrbVisual";
-import { SdxlVisual } from "@/components/visuals/SdxlVisual";
-import { CipherVisual } from "@/components/visuals/CipherVisual";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useInView } from "@/components/toys/hooks";
+import { PitWallToy } from "@/components/toys/PitWallToy";
+import { OrbToy } from "@/components/toys/OrbToy";
+import { SdxlToy } from "@/components/toys/SdxlToy";
+import { ChatToy } from "@/components/toys/ChatToy";
 import styles from "./Projects.module.css";
 
-export interface ProjectCardProps {
-  project: Project;
-  active: boolean;
-  ref?: Ref<HTMLElement>;
-}
-
-function hostOf(href: string | null, fallback: string): string {
-  if (!href) return fallback;
-  try {
-    return new URL(href).host;
-  } catch {
-    return fallback;
-  }
-}
-
-function Visual({ project, active }: { project: Project; active: boolean }) {
+function Toy({ project, active, reduced }: { project: Project; active: boolean; reduced: boolean }) {
   const { visual } = project;
   switch (visual.kind) {
     case "pitwall":
-      return <PitWallVisual visual={visual} label={hostOf(project.href, project.slug)} active={active} />;
+      return <PitWallToy image={visual.image} href={project.href} />;
     case "orb":
-      return <OrbVisual visual={visual} label={project.slug} active={active} />;
+      return <OrbToy active={active} reduced={reduced} />;
     case "sdxl":
-      return <SdxlVisual visual={visual} active={active} />;
+      return <SdxlToy active={active} reduced={reduced} url={visual.url} />;
     case "cipher":
-      return <CipherVisual visual={visual} label={project.slug} active={active} />;
+      return <ChatToy active={active} reduced={reduced} clients={visual.clients} initial={visual.plaintext} />;
   }
 }
 
-export function ProjectCard({ project, active, ref }: ProjectCardProps) {
+export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const reduced = useReducedMotion();
+  const [stageRef, inView] = useInView<HTMLDivElement>();
   const headingId = `project-${project.slug}-heading`;
+  const external = project.href !== null;
+
   return (
-    <article ref={ref} aria-labelledby={headingId} className={styles.proj}>
-      <Visual project={project} active={active} />
+    <article
+      id={`project-${project.slug}`}
+      role="tabpanel"
+      aria-labelledby={headingId}
+      className={styles.proj}
+    >
+      <div ref={stageRef} className={styles.stage}>
+        <Toy project={project} active={inView} reduced={reduced} />
+      </div>
       <div className={styles.copy}>
-        <span className={styles.eyebrow}>{project.eyebrow}</span>
+        <span className={styles.eyebrow}>
+          {String(index + 1).padStart(2, "0")} · {project.eyebrow}
+        </span>
         <h3 id={headingId} className={`display-md ${styles.name}`}>
           {project.name}
         </h3>
         <p className={styles.summary}>{project.summary}</p>
-        <span className={styles.fact}>{project.fact}</span>
         <TagList items={project.tags} />
-        {project.href ? (
-          <a href={project.href} target="_blank" rel="noopener noreferrer" className={styles.visit}>
-            {project.href.includes("github.com") ? "GitHub ↗" : "Live Demo ↗"}
-            <span className="sr-only"> {project.name} (opens in a new tab)</span>
+        <span className={styles.fact}>{project.fact}</span>
+        <div className={styles.linkRow}>
+          <a
+            href={project.href ?? "#"}
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className={styles.visit}
+          >
+            {project.href === null
+              ? "[Video link]"
+              : project.href.includes("github.com")
+                ? "GitHub ↗"
+                : "Live Demo ↗"}
+            {external ? <span className="sr-only"> {project.name} (opens in a new tab)</span> : null}
           </a>
-        ) : null}
+          <span className={styles.note}>the toy is a stand-in, the link is the real thing</span>
+        </div>
       </div>
     </article>
   );

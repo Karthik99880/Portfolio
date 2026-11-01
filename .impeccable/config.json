@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "name-wobble",
+        "createdAt": "2026-10-24T11:28:25.436Z",
+        "reason": "Claude triage: name-wobble is the deliberate hover wobble of the 'i' in the name (the intro's misplaced-i joke), a literal wobble rather than a bounce easing; predates this session"
+      }
+    ]
+  }
+}
