@@ -40,7 +40,10 @@ export default function Contact() {
   const [tick, setTick] = useState({ phase: "idle" as Phase, n: 0 });
 
   const [state, formAction, pending] = useActionState(async (prev: ContactState, formData: FormData) => {
-    const [next] = await Promise.all([sendMessage(prev, formData), new Promise((r) => setTimeout(r, TX_MIN_MS))]);
+    const [next] = await Promise.all([
+      sendMessage(prev, formData).catch((): ContactState => ({ ok: false, error: "send-failed" })),
+      new Promise((r) => setTimeout(r, TX_MIN_MS)),
+    ]);
     if (next.ok) setValues(emptyValues);
     return next;
   }, initialState);
@@ -82,6 +85,7 @@ export default function Contact() {
   const update = (field: ContactField) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValues((v) => ({ ...v, [field]: e.target.value }));
     if (localErr === field) setLocalErr(null);
+    if (serverField === field) setDismissed(state);
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

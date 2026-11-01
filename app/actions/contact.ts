@@ -37,8 +37,8 @@ export async function sendMessage(_prev: ContactState, formData: FormData): Prom
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
-        to: [process.env.CONTACT_TO_EMAIL ?? siteConfig.email],
+        from: process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
+        to: [process.env.CONTACT_TO_EMAIL || siteConfig.email],
         reply_to: email,
         subject: `[${compound.name} · ${compound.ask}] Portfolio message from ${name}`,
         text: `${message}\n\nFrom ${name} <${email}>\nCompound: ${compound.name} (${compound.ask})`,

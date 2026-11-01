@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
   description:
     "Software engineer building full-stack and applied-AI systems on a live healthcare platform: an LLM booking assistant, real-time features, and a 560-test automation suite.",
   url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000"),
   links: [
     { label: "GitHub ↗", href: "https://github.com/Karthik99880" },

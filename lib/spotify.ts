@@ -9,6 +9,7 @@ export async function getPlaylistTracks(playlistId: string): Promise<Track[]> {
   try {
     const res = await fetch(`https://open.spotify.com/embed/playlist/${playlistId}`, {
       headers: { "User-Agent": "Mozilla/5.0" },
+      signal: AbortSignal.timeout(5000),
       next: { revalidate: 86400 },
     });
     if (!res.ok) return [];
@@ -19,7 +20,8 @@ export async function getPlaylistTracks(playlistId: string): Promise<Track[]> {
       JSON.parse(blob)?.props?.pageProps?.state?.data?.entity?.trackList ?? [];
     return list
       .filter((t) => t.isPlayable !== false && t.uri?.startsWith("spotify:track:"))
-      .map((t) => ({ id: t.uri!.split(":")[2], title: t.title ?? "", artist: t.subtitle ?? "" }));
+      .map((t) => ({ id: t.uri!.split(":")[2], title: t.title ?? "", artist: t.subtitle ?? "" }))
+      .filter((t) => /^[A-Za-z0-9]{22}$/.test(t.id));
   } catch {
     return [];
   }

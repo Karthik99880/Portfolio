@@ -58,6 +58,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
   const t0 = useRef(0);
   const free = useRef(true);
   const padRef = useRef<HTMLButtonElement>(null);
+  const musicRef = useRef<HTMLButtonElement>(null);
   const cardRef = useRef<HTMLElement>(null);
 
   const clear = useCallback(() => {
@@ -85,6 +86,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
   const bye = useCallback(() => {
     window.clearTimeout(goTimer.current);
     setGame(null);
+    if (padRef.current && padRef.current.closest("section")?.contains(document.activeElement)) musicRef.current?.focus({ preventScroll: true });
     run(reduced ? [[0, "typing"]] : [[0, "nod"], [500, "unsquash"], [760, "typing"]]);
   }, [reduced, run]);
 
@@ -324,6 +326,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
 
         <button
           type="button"
+          ref={musicRef}
           aria-expanded={player}
           onClick={() => {
             if (!player && tracks.length) setPick(Math.floor(Math.random() * tracks.length));
@@ -402,7 +405,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
               <button
                 ref={padRef}
                 type="button"
-                onPointerDown={press}
+                onPointerDown={(e) => e.button === 0 && press()}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();

@@ -50,14 +50,14 @@ export default function Skills() {
   }, [played, reduced, step, b.tools.length]);
 
   useEffect(() => {
-    if (hum && step >= 1 && step <= b.tools.length) pluck(pitch(b.tools[step - 1]));
-  }, [hum, step, b]);
+    if (humStore.get() && step >= 1 && step <= b.tools.length) pluck(pitch(b.tools[step - 1]));
+  }, [step, b]);
 
   useEffect(() => {
     const board = boardRef.current;
     if (!board) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
       if ((e.target as HTMLElement).closest("input, textarea, select, [contenteditable]")) return;
       const k = bound.get(e.key.toLowerCase());
       if (!k) return;
@@ -69,10 +69,14 @@ export default function Skills() {
           .querySelector(`[data-k="${k}"]`)
           ?.animate([{ transform: "translateY(3px)", background: "var(--color-leaf)" }, { transform: "none" }], { duration: 300, easing: "ease-out" });
     };
-    return inView(board, () => {
+    const stop = inView(board, () => {
       window.addEventListener("keydown", onKey);
       return () => window.removeEventListener("keydown", onKey);
     });
+    return () => {
+      stop();
+      window.removeEventListener("keydown", onKey);
+    };
   }, [reduced]);
 
   const pick = (i: number) => {

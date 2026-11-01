@@ -18,7 +18,7 @@ export const LIMITS = {
   message: { min: 10, max: 2000 },
 } as const;
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const EMAIL_RE = /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[^\s@,;<>"]{2,}$/;
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -26,7 +26,7 @@ function asString(value: unknown): string {
 
 export function validateContact(raw: Record<ContactField, unknown>): ValidationResult {
   const data: ContactInput = {
-    name: asString(raw.name),
+    name: asString(raw.name).replace(/[\x00-\x1f\x7f]+/g, " "),
     email: asString(raw.email),
     message: asString(raw.message),
   };

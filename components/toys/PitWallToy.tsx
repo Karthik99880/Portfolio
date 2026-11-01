@@ -64,7 +64,7 @@ export function PitWallToy({ image, href }: { image: ProjectImage; href: string 
           max={10}
           value={races}
           onChange={(e) => set((s) => ({ ...s, races: Number(e.target.value) }))}
-          className="toyfocus min-w-0 flex-1 accent-[#4fd67a]"
+          className="toyfocus h-11 min-w-0 flex-1 accent-[#4fd67a] min-[900px]:h-auto"
         />
       </label>
       <div aria-live="polite">

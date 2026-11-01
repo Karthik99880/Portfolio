@@ -11,7 +11,7 @@ import styles from "./Intro.module.css";
 type Phase = "idle" | "greet" | "name" | "hiding" | "done";
 
 const STORAGE_KEY = "intro-played";
-const GATE = `try{if(sessionStorage.getItem("${STORAGE_KEY}")==="1")document.documentElement.classList.add("intro-played")}catch(e){}`;
+const GATE = `try{if(sessionStorage.getItem("${STORAGE_KEY}")==="1"||location.hash||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-played")}catch(e){}`;
 const FADE_MS = 600;
 const STEP_MS = 850;
 const NAME_HOLD_MS = 7000;
@@ -93,7 +93,7 @@ export default function Intro() {
     }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const at = (ms: number, fn: () => void) => timers.current.push(window.setTimeout(fn, ms));
-    if (played || reduce) {
+    if (played || reduce || window.location.hash) {
       markPlayed();
       at(0, () => setPhase("done"));
       return clearAll;
@@ -149,6 +149,9 @@ export default function Intro() {
         type={typeof window === "undefined" ? undefined : "text/plain"}
         dangerouslySetInnerHTML={{ __html: GATE }}
       />
+      <noscript>
+        <style>{"[data-intro]{display:none}"}</style>
+      </noscript>
       <div
         data-intro
         aria-hidden="true"
