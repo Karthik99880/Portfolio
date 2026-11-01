@@ -216,7 +216,7 @@ export default function DeskScene({
         <text
           x="524"
           y="117"
-          fontFamily="'JetBrains Mono', monospace"
+          style={{ fontFamily: "var(--font-mono)" }}
           fontSize="5"
           letterSpacing="1"
           textAnchor="middle"
@@ -292,7 +292,7 @@ export default function DeskScene({
           <circle cx="322" cy="150.5" r="1.8" />
         </g>
         <g
-          fontFamily="'JetBrains Mono', monospace"
+          style={{ fontFamily: "var(--font-mono)" }}
           fontSize="6.4"
           stroke="none"
         >
@@ -401,7 +401,7 @@ export default function DeskScene({
         <text
           x="463"
           y="139"
-          fontFamily="'JetBrains Mono', monospace"
+          style={{ fontFamily: "var(--font-mono)" }}
           fontSize="4.6"
           textAnchor="middle"
           fill="#181511"
