@@ -15,10 +15,15 @@ const label = new Map(tools.map((t) => [t.key, t.label]));
 const git = tools.find((t) => t.key === "git");
 const keys = tools.filter((t) => t.key !== "git");
 const pitch = (key: string) => tools.findIndex((t) => t.key === key);
+const KEYMAP = "1234567890qwertyuiopasdfghjklzxcvbnm";
+const order = git ? [...keys, git] : keys;
+const bound = new Map(order.slice(0, KEYMAP.length).map((t, i) => [KEYMAP[i], t.key]));
+const hint = new Map([...bound].map(([c, k]) => [k, c]));
 
 export default function Skills() {
   const reduced = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
+  const boardRef = useRef<HTMLDivElement>(null);
   const [build, setBuild] = useState(0);
   const [step, setStep] = useState(builds[0].tools.length);
   const [played, setPlayed] = useState(false);
@@ -48,6 +53,28 @@ export default function Skills() {
     if (hum && step >= 1 && step <= b.tools.length) pluck(pitch(b.tools[step - 1]));
   }, [hum, step, b]);
 
+  useEffect(() => {
+    const board = boardRef.current;
+    if (!board) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+      if ((e.target as HTMLElement).closest("input, textarea, select, [contenteditable]")) return;
+      const k = bound.get(e.key.toLowerCase());
+      if (!k) return;
+      if (!humStore.get()) humStore.set(true);
+      pluck(pitch(k));
+      setInfo(k);
+      if (!reduced)
+        board
+          .querySelector(`[data-k="${k}"]`)
+          ?.animate([{ transform: "translateY(3px)", background: "var(--color-leaf)" }, { transform: "none" }], { duration: 300, easing: "ease-out" });
+    };
+    return inView(board, () => {
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    });
+  }, [reduced]);
+
   const pick = (i: number) => {
     setBuild(i);
     setInfo(null);
@@ -66,6 +93,7 @@ export default function Skills() {
       <button
         key={t.key}
         type="button"
+        data-k={t.key}
         aria-pressed={info === t.key}
         className={`${styles.key} ${wide ? styles.wide : ""} ${lit ? styles.lit : ""} ${lit && played && !reduced ? styles.fresh : ""} ${info === t.key ? styles.sel : ""}`}
         onClick={() => {
@@ -74,6 +102,11 @@ export default function Skills() {
         }}
       >
         {t.label}
+        {hint.has(t.key) ? (
+          <kbd aria-hidden="true" className={styles.hint}>
+            {hint.get(t.key)}
+          </kbd>
+        ) : null}
       </button>
     );
   };
@@ -109,7 +142,7 @@ export default function Skills() {
           </p>
         </div>
 
-        <div className={styles.board} role="group" aria-label="Tools">
+        <div ref={boardRef} className={styles.board} role="group" aria-label="Tools">
           {keys.map((t) => renderKey(t))}
           {git ? renderKey(git, true) : null}
         </div>
@@ -122,7 +155,7 @@ export default function Skills() {
                 {usedIn.length ? `used in ${usedIn.join(", ")}` : "in the toolbox, not in a shipped build yet"}
               </>
             ) : (
-              "Lit keys are the build. Click any key to see where it shows up."
+              "Lit keys are the build. Click a key, or play them on your keyboard."
             )}
           </p>
           <button

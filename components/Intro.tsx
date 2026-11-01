@@ -11,6 +11,7 @@ import styles from "./Intro.module.css";
 type Phase = "idle" | "greet" | "name" | "hiding" | "done";
 
 const STORAGE_KEY = "intro-played";
+const GATE = `try{if(sessionStorage.getItem("${STORAGE_KEY}")==="1")document.documentElement.classList.add("intro-played")}catch(e){}`;
 const FADE_MS = 600;
 const STEP_MS = 850;
 const NAME_HOLD_MS = 7000;
@@ -142,7 +143,14 @@ export default function Intro() {
 
   return (
     <>
+      {/* Runs from the server HTML before paint so a reload skips the overlay; inert once React renders it. */}
+      <script
+        suppressHydrationWarning
+        type={typeof window === "undefined" ? undefined : "text/plain"}
+        dangerouslySetInnerHTML={{ __html: GATE }}
+      />
       <div
+        data-intro
         aria-hidden="true"
         onPointerMove={(e) => {
           px.set(e.clientX / window.innerWidth - 0.5);
@@ -260,6 +268,7 @@ export default function Intro() {
       {phase !== "hiding" ? (
         <button
           type="button"
+          data-intro
           onClick={finish}
           className="group fixed right-[clamp(20px,5vw,64px)] bottom-[clamp(20px,5svh,56px)] z-[51] inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-full bg-void px-6 font-mono text-[12px] tracking-[0.12em] text-[#dcff70] uppercase"
         >

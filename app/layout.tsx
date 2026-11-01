@@ -53,7 +53,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${instrument.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${instrument.variable} ${plexMono.variable}`} suppressHydrationWarning>
       <body>
         <SmoothScroll />
         {children}

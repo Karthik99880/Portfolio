@@ -90,6 +90,24 @@
 .wide {
   grid-column: span 2;
 }
+.key {
+  position: relative;
+}
+.hint {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hint {
+    display: block;
+  }
+}
 .lit {
   background: var(--color-lime);
   border-color: var(--color-ink);

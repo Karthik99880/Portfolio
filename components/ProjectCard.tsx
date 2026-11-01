@@ -50,21 +50,23 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         <p className={styles.summary}>{project.summary}</p>
         <TagList items={project.tags} />
         <span className={styles.fact}>{project.fact}</span>
-        <div className={styles.linkRow}>
-          <a
-            href={project.href ?? "#"}
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className={styles.visit}
-          >
-            {project.href === null
-              ? "[Video link]"
-              : project.href.includes("github.com")
-                ? "GitHub ↗"
-                : "Live Demo ↗"}
-            {external ? <span className="sr-only"> {project.name} (opens in a new tab)</span> : null}
-          </a>
-          <span className={styles.note}>the toy is a stand-in, the link is the real thing</span>
-        </div>
+        {external ? (
+          <div className={styles.linkRow}>
+            <a
+              href={project.href ?? "#"}
+              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className={styles.visit}
+            >
+              {project.href === null
+                ? "[Video link]"
+                : project.href.includes("github.com")
+                  ? "GitHub ↗"
+                  : "Live Demo ↗"}
+              {external ? <span className="sr-only"> {project.name} (opens in a new tab)</span> : null}
+            </a>
+            <span className={styles.note}>the toy is a stand-in, the link is the real thing</span>
+          </div>
+        ) : null}
       </div>
     </article>
   );

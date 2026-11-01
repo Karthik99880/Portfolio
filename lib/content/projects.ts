@@ -34,6 +34,7 @@ export const projects: Project[] = [
       "Extended an open-source Three.js / MediaPipe hand-tracking interface with an interactive 3D Earth globe, a HUD dashboard, a spatial sound engine and live weather.",
     fact: "Rewrote the gesture pipeline · pinch-to-spin · two-hand zoom",
     tags: ["Next.js", "Three.js", "MediaPipe"],
+    // Reel at /videos/ultron-orb.mp4 is parked until it is reviewed.
     href: null,
     visual: {
       kind: "orb",

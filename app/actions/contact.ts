@@ -45,7 +45,7 @@ export async function sendMessage(_prev: ContactState, formData: FormData): Prom
       }),
     });
     if (!res.ok) {
-      console.error(`[contact] Resend responded ${res.status}`);
+      console.error(`[contact] Resend responded ${res.status}: ${await res.text()}`);
       return { ok: false, error: "send-failed" };
     }
     return { ok: true };
