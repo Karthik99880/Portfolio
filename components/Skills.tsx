@@ -129,7 +129,7 @@ export default function Skills() {
             type="button"
             aria-pressed={hum}
             onClick={() => humStore.set(!hum)}
-            className="mt-4 inline-flex min-h-11 cursor-pointer min-[761px]:min-h-9 items-center gap-2 rounded-full border border-line bg-transparent px-3.5 font-mono text-[11px] tracking-[0.1em] text-ink uppercase transition-colors hover:border-ink"
+            className="mt-4 inline-flex min-h-11 cursor-pointer min-[900px]:min-h-9 items-center gap-2 rounded-full border border-line bg-transparent px-3.5 font-mono text-[11px] tracking-[0.1em] text-ink uppercase transition-colors hover:border-ink"
           >
             <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 9v6h4l5 4V5L8 9H4z" />

@@ -58,6 +58,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
   const t0 = useRef(0);
   const free = useRef(true);
   const padRef = useRef<HTMLButtonElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
 
   const clear = useCallback(() => {
     timers.current.forEach((t) => window.clearTimeout(t));
@@ -186,6 +187,19 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
     if (game === "ready") padRef.current?.focus({ preventScroll: true });
   }, [game]);
 
+  // Below 900px the card sits under the scene, often past the fold; bring its bottom into view once.
+  const gameOpen = game !== null;
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!gameOpen || !card || window.matchMedia("(min-width: 900px)").matches) return;
+    const r = card.getBoundingClientRect();
+    const top = window.scrollY + r.top - 16;
+    const target = Math.min(top, window.scrollY + r.bottom - window.innerHeight + 16);
+    if (target <= window.scrollY && r.top >= 0) return;
+    if (lenis) lenis.scrollTo(target, { immediate: reduced });
+    else window.scrollTo({ top: target, behavior: reduced ? "auto" : "smooth" });
+  }, [gameOpen, lenis, reduced]);
+
   useEffect(
     () => () => {
       clear();
@@ -237,6 +251,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
   };
   const asking = stage === "ask" && !game;
   const talking = stage === "talk" && !!line;
+  const bubbleUp = asking || talking;
   const pad = game ? padStyle[game] : padStyle.ready;
   const [big, small] = game ? reaction.pad[game] : reaction.pad.ready;
   const track = tracks[pick];
@@ -267,12 +282,12 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 className="block rounded-[10px] border-0"
               />
-              <div className="mt-2 flex items-center justify-between gap-2 px-1">
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-2 px-1">
                 {tracks.length > 1 ? (
                   <button
                     type="button"
                     onClick={shuffle}
-                    className="inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-full border border-[#2f2b25] bg-transparent px-3 font-mono text-[11px] tracking-[0.08em] text-paper uppercase hover:border-lime"
+                    className="inline-flex min-h-11 min-[900px]:min-h-9 cursor-pointer items-center gap-2 rounded-full border border-[#2f2b25] bg-transparent px-3 font-mono text-[11px] tracking-[0.08em] text-paper uppercase hover:border-lime"
                   >
                     <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
@@ -282,12 +297,12 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
                 ) : (
                   <span />
                 )}
-                <span className="flex items-center gap-1">
+                <span className="ml-auto flex items-center gap-1">
                   <a
                     href={`https://open.spotify.com/playlist/${music.playlistId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-9 items-center px-2 font-mono text-[11px] tracking-[0.08em] text-[#c9c3b8] uppercase hover:text-lime"
+                    className="inline-flex min-h-11 min-[900px]:min-h-9 items-center px-2 font-mono text-[11px] tracking-[0.08em] text-[#c9c3b8] uppercase hover:text-lime"
                   >
                     {music.fullPlaylist}
                   </a>
@@ -295,7 +310,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
                     type="button"
                     aria-label={music.close}
                     onClick={() => setPlayer(false)}
-                    className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-[#2f2b25] bg-transparent text-[#a39c90] hover:text-paper"
+                    className="flex size-11 min-[900px]:size-9 cursor-pointer items-center justify-center rounded-full border border-[#2f2b25] bg-transparent text-[#a39c90] hover:text-paper"
                   >
                     <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                       <path d="M2 2 L10 10 M10 2 L2 10" />
@@ -314,7 +329,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
             if (!player && tracks.length) setPick(Math.floor(Math.random() * tracks.length));
             setPlayer(!player);
           }}
-          className="absolute right-[3%] bottom-[3%] z-[5] inline-flex min-h-10 max-w-[94%] cursor-pointer items-center gap-2 rounded-full border border-line bg-paper/90 px-3.5 font-mono text-[11px] tracking-[0.06em] text-ink backdrop-blur-sm transition-colors hover:border-ink min-[900px]:min-h-9"
+          className={`absolute right-[3%] bottom-[3%] z-[5] inline-flex min-h-11 max-w-[94%] cursor-pointer items-center gap-2 rounded-full border border-line bg-paper/90 px-3.5 font-mono text-[11px] tracking-[0.06em] text-ink backdrop-blur-sm transition-[border-color,opacity,visibility] duration-300 hover:border-ink min-[900px]:min-h-9 ${bubbleUp ? "max-[480px]:invisible max-[480px]:opacity-0" : ""}`}
         >
           <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18V5l12-2v13" />
@@ -335,14 +350,14 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
               <button
                 type="button"
                 onClick={openGame}
-                className="inline-flex min-h-10 cursor-pointer items-center rounded-full border-0 bg-lime px-4 font-mono text-[11.5px] tracking-[0.1em] text-ink uppercase"
+                className="inline-flex min-h-11 min-[900px]:min-h-10 cursor-pointer items-center rounded-full border-0 bg-lime px-4 font-mono text-[11.5px] tracking-[0.1em] text-ink uppercase"
               >
                 {reaction.yes}
               </button>
               <button
                 type="button"
                 onClick={bye}
-                className="inline-flex min-h-10 cursor-pointer items-center rounded-full border border-[#3a352d] bg-transparent px-4 font-mono text-[11.5px] tracking-[0.1em] text-[#c9c3b8] uppercase hover:text-paper"
+                className="inline-flex min-h-11 min-[900px]:min-h-10 cursor-pointer items-center rounded-full border border-[#3a352d] bg-transparent px-4 font-mono text-[11.5px] tracking-[0.1em] text-[#c9c3b8] uppercase hover:text-paper"
               >
                 {reaction.later}
               </button>
@@ -363,6 +378,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
         {game ? (
           <motion.section
             key="game"
+            ref={cardRef}
             aria-label={reaction.title}
             {...pop}
             transition={popEase}
@@ -374,7 +390,7 @@ export default function DeskHello({ tracks }: { tracks: Track[] }) {
                 type="button"
                 aria-label={reaction.close}
                 onClick={bye}
-                className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-[#2f2b25] bg-transparent text-[#a39c90] hover:text-paper min-[900px]:size-8"
+                className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-[#2f2b25] bg-transparent text-[#a39c90] hover:text-paper min-[900px]:size-8"
               >
                 <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                   <path d="M2 2 L10 10 M10 2 L2 10" />

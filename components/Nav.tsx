@@ -9,7 +9,7 @@ const links = ["about", "experience", "skills", "work"] as const;
 const watched: Record<string, string> = { about: "about", experience: "experience", skills: "skills", work: "work", achievements: "work" };
 
 const linkClass =
-  "inline-flex min-h-[40px] items-center gap-[7px] px-[11px] font-mono text-[11.5px] uppercase tracking-[0.1em] transition-colors duration-300 hover:text-ink focus-visible:text-ink";
+  "inline-flex min-h-11 min-[900px]:min-h-[40px] items-center gap-[7px] px-[11px] font-mono text-[11.5px] uppercase tracking-[0.1em] transition-colors duration-300 hover:text-ink focus-visible:text-ink";
 
 export default function Nav() {
   const { scrollY, scrollYProgress } = useScroll();
@@ -50,7 +50,7 @@ export default function Nav() {
           <a
             href="#main"
             aria-label={siteConfig.name}
-            className="inline-flex size-10 items-center justify-center rounded-full bg-ink font-display text-[14px] font-bold text-paper transition-colors duration-300 hover:bg-accent focus-visible:bg-accent"
+            className="inline-flex size-11 min-[900px]:size-10 items-center justify-center rounded-full bg-ink font-display text-[14px] font-bold text-paper transition-colors duration-300 hover:bg-accent focus-visible:bg-accent"
           >
             {siteConfig.name
               .split(" ")
@@ -73,7 +73,7 @@ export default function Nav() {
             </ul>
             <a
               href="#contact"
-              className="ml-2 inline-flex h-10 items-center rounded-full bg-accent px-4 font-mono text-[11.5px] uppercase tracking-[0.1em] text-paper transition-colors duration-300 hover:bg-ink focus-visible:bg-ink"
+              className="ml-2 inline-flex h-11 min-[900px]:h-10 items-center rounded-full bg-accent px-4 font-mono text-[11.5px] uppercase tracking-[0.1em] text-paper transition-colors duration-300 hover:bg-ink focus-visible:bg-ink"
             >
               {contact.navLabel}
             </a>

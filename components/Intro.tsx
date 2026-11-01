@@ -17,7 +17,7 @@ const NAME_HOLD_MS = 7000;
 const SCROLL_KEYS = [" ", "ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End"];
 const LIME = "#dcff70";
 const INK = "#0c0a08";
-const words = [...intro.greetings.slice(0, 4), intro.lead];
+const words = [...intro.greetings.slice(0, 6), intro.lead];
 const pop = { type: "spring", stiffness: 260, damping: 14 } as const;
 
 // Marked on finish (not mount) so StrictMode's double effect run does not skip the first play.
@@ -193,7 +193,7 @@ export default function Intro() {
           </motion.svg>
         </div>
 
-        <div className="absolute bottom-[clamp(96px,12svh,128px)] max-[699px]:bottom-[132px] left-[clamp(20px,6vw,72px)] flex flex-col gap-5">
+        <div className="absolute bottom-[clamp(96px,12svh,128px)] max-[699px]:bottom-[calc(clamp(20px,5svh,56px)+112px)] left-[clamp(20px,6vw,72px)] flex flex-col gap-5">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: phase === "name" ? 1 : 0 }}
@@ -211,11 +211,11 @@ export default function Intro() {
               transition={{ duration: 0.16, ease: "easeOut" }}
             >
               <motion.div
-                animate={{ y: `${step * -1.15}em` }}
+                animate={{ y: `${step * -1.75}em` }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
                 {words.map((w) => (
-                  <div key={w} className="h-[1.15em] leading-[1.15] whitespace-nowrap">
+                  <div key={w} className="mb-[0.6em] h-[1.15em] leading-[1.15] whitespace-nowrap">
                     {w}
                   </div>
                 ))}

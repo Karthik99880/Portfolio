@@ -37,7 +37,7 @@ export function PitWallToy({ image, href }: { image: ProjectImage; href: string 
           href={href ?? image.src}
           target="_blank"
           rel="noopener noreferrer"
-          className="toyfocus hidden shrink-0 items-center gap-2 font-mono text-[10.5px] text-[#a39c90] hover:text-[#dcff70] sm:flex"
+          className="toyfocus hidden min-h-11 min-[900px]:min-h-0 shrink-0 items-center gap-2 font-mono text-[10.5px] text-[#a39c90] hover:text-[#dcff70] sm:flex"
         >
           <Image src={image.src} alt="" width={image.width} height={image.height} className="h-8 w-auto rounded-[3px]" />
           see the real thing

@@ -143,7 +143,7 @@ export default function Contact() {
               <div className={`${row} flex-wrap`}>
                 <span className={rowLab}>{contact.info.direct}</span>
                 <span className="inline-flex flex-wrap items-center justify-end gap-2">
-                  <a href={`mailto:${siteConfig.email}`} className="font-mono text-[13px] break-all text-ink hover:text-accent focus-visible:text-accent">
+                  <a href={`mailto:${siteConfig.email}`} className="inline-flex min-h-11 min-[900px]:min-h-0 items-center font-mono text-[13px] break-all text-ink hover:text-accent focus-visible:text-accent">
                     {siteConfig.email}
                   </a>
                   <button
