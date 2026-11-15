@@ -26,29 +26,15 @@ export default function Achievements() {
           </RevealItem>
         ))}
       </RevealGroup>
-      <h3 className={`${meta} mt-10 mb-3`}>{achievements.certificationsTitle}</h3>
-      <RevealGroup as="ol" delay={0.15} step={0.05} className="m-0 list-none border-t-2 border-[#c8102e] p-0">
-        {achievements.certifications.map((c, i) => {
-          const [issuer, year] = c.label.split(" · ");
-          return (
-            <RevealItem
-              as="li"
-              key={`${c.label}-${i}`}
-              className="grid grid-cols-[56px_minmax(0,1fr)] items-baseline gap-x-5 border-b border-line py-4 min-[760px]:grid-cols-[72px_190px_minmax(0,1fr)]"
-            >
-              <span className="font-mono text-[13px] text-ink">{year}</span>
-              <div className="flex flex-col gap-1 min-[760px]:contents">
-                <span className={meta}>{issuer}</span>
-                <span className="text-[16px] leading-[1.4] text-ink">{c.detail}</span>
-              </div>
-            </RevealItem>
-          );
-        })}
+      <h3 className="sr-only">{achievements.certificationsTitle}</h3>
+      <RevealGroup as="ul" delay={0.15} className="m-0 mt-3.5 grid list-none grid-cols-1 gap-3 p-0 min-[560px]:grid-cols-2 min-[960px]:grid-cols-4">
+        {achievements.certifications.map((c, i) => (
+          <RevealItem as="li" key={`${c.label}-${i}`} className="rounded-[6px] border border-line px-[18px] py-4">
+            <div className={meta}>{c.label}</div>
+            <div className="mt-1.5 text-[15px] leading-[1.4] text-ink">{c.detail}</div>
+          </RevealItem>
+        ))}
       </RevealGroup>
-      <p className={`${meta} m-0 mt-6 flex items-center gap-2.5`}>
-        <span aria-hidden="true" className="size-2 bg-[#c8102e]" />
-        {achievements.signoff}
-      </p>
     </Section>
   );
 }

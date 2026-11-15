@@ -2,10 +2,9 @@ import type { AchievementsContent } from "./types";
 
 export const achievements: AchievementsContent = {
   kicker: "record",
-  heading: "Honours",
+  heading: "Achievements & certifications",
   achievementsTitle: "Achievements",
-  certificationsTitle: "Certifications, season by season",
-  signoff: "You’ll Never Walk Alone",
+  certificationsTitle: "Certifications",
   achievements: [
     { label: "24-hour hackathon", detail: "Top 15 of 60 teams" },
     { label: "Research paper", detail: "Cross-Cultural Communication & Interaction" },
