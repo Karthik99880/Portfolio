@@ -146,6 +146,7 @@ export interface AchievementsContent extends SectionHeading {
   certificationsTitle: string;
   achievements: LogEntry[];
   certifications: LogEntry[];
+  signoff: string;
 }
 
 export interface MusicContent {

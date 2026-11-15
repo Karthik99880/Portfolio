@@ -3,7 +3,7 @@ import type { Build, SectionHeading, Tool } from "./types";
 export const skillsHeading: SectionHeading = {
   kicker: "skills",
   heading: "How I actually use them",
-  lede: "Six things I've built, and what each one took. Pick one and the tools light up in the order I reached for them.",
+  lede: "Seven things I've built, and what each one took. Pick one and the tools light up in the order I reached for them.",
 };
 
 // Order matters: this is the reading order of the typographic field.
@@ -21,6 +21,9 @@ export const tools: Tool[] = [
   { key: "tanstack", label: "TanStack Query" },
   { key: "radix", label: "Radix UI" },
   { key: "tailwind", label: "Tailwind CSS" },
+  { key: "vite", label: "Vite" },
+  { key: "motion", label: "Motion" },
+  { key: "lenis", label: "Lenis" },
   { key: "three", label: "Three.js" },
   { key: "mediapipe", label: "MediaPipe" },
   { key: "node", label: "Node.js" },
@@ -68,6 +71,12 @@ export const builds: Build[] = [
     why: "Live standings make the data layer the product. TanStack Query keeps the wall current without the UI ever flickering, and the predictor does the math the stats sites don't.",
     where: "Karthik's Pit Wall · karthik-pit-wall.vercel.app",
     tools: ["ts", "react", "tanstack", "radix", "rest", "git", "sonar", "vercel"],
+  },
+  {
+    title: "A Liverpool dashboard where every number is live",
+    why: "Every data section reads from a live source through a server-side proxy that hides the key and caches under the API rate limit. Motion and Lenis carry the scroll, and a Three.js backdrop sits behind the hero.",
+    where: "The Kop End · kop-wall.vercel.app",
+    tools: ["ts", "react", "vite", "tanstack", "motion", "lenis", "three", "rest", "vercel", "git"],
   },
   {
     title: "A 3D globe you steer with your hands",
