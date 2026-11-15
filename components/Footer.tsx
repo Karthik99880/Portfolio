@@ -1,5 +1,6 @@
 import { reaction, siteConfig } from "@/lib/content";
 import ReactionLink from "@/components/ReactionLink";
+import { YnwaButton } from "@/components/Ynwa";
 
 const head = "m-0 font-mono text-[11px] font-normal tracking-[0.14em] text-leaf uppercase";
 const list = "m-0 mt-3 flex list-none flex-col p-0 text-paper/85";
@@ -53,6 +54,9 @@ export default function Footer() {
               <li className="inline-flex min-h-[36px] items-center">{siteConfig.location}</li>
               <li>
                 <ReactionLink className={`${link} font-mono text-[12px] tracking-[0.08em] text-leaf uppercase`}>{reaction.footerLink}</ReactionLink>
+              </li>
+              <li>
+                <YnwaButton className={`${link} cursor-pointer font-mono text-[12px] tracking-[0.08em] text-leaf uppercase`}>YNWA</YnwaButton>
               </li>
               <li>
                 <a href="#" className={`${link} font-mono text-[12px] tracking-[0.08em] text-leaf uppercase`}>

@@ -1,10 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 const WORD = "ynwa";
 const RED = { "--color-lime": "#ff6b7d", "--color-leaf": "#e8384f", "--color-accent": "#c8102e" };
 const HOLD_MS = 7000;
+const EVENT = "ynwa";
+const fire = () => window.dispatchEvent(new Event(EVENT));
+
+export function YnwaButton({ className, children }: { className?: string; children: ReactNode }) {
+  return (
+    <button type="button" className={className} onClick={fire}>
+      {children}
+    </button>
+  );
+}
+
+export function YnwaShirt({ children }: { children: ReactNode }) {
+  return (
+    <g onClick={fire} style={{ cursor: "pointer", pointerEvents: "auto" }}>
+      {children}
+    </g>
+  );
+}
 
 export default function Ynwa() {
   const [on, setOn] = useState(false);
@@ -23,14 +41,19 @@ export default function Ynwa() {
       typed = (typed + e.key.toLowerCase()).slice(-WORD.length);
       if (typed !== WORD) return;
       typed = "";
+      turnRed();
+    };
+    const turnRed = () => {
       for (const [k, v] of Object.entries(RED)) root.style.setProperty(k, v);
       setOn(true);
       clearTimeout(timer);
       timer = setTimeout(clear, HOLD_MS);
     };
     window.addEventListener("keydown", onKey);
+    window.addEventListener(EVENT, turnRed);
     return () => {
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener(EVENT, turnRed);
       clearTimeout(timer);
       clear();
     };

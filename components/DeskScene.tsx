@@ -1,4 +1,5 @@
 import styles from "./DeskScene.module.css";
+import { YnwaShirt } from "@/components/Ynwa";
 
 export interface DeskPose {
   facing: "back" | "front";
@@ -227,6 +228,7 @@ export default function DeskScene({
           SILVER ARROWS
         </text>
 
+        <YnwaShirt>
         <circle cx="400" cy="43" r="1.6" fill="#181511" stroke="none" />
         <path d="M400 56 L400 52 Q400 46 395 47" strokeWidth="1.6" />
         <path d="M400 56 L378 68 M400 56 L422 68 M378 68 L422 68" strokeWidth="1.6" />
@@ -244,6 +246,7 @@ export default function DeskScene({
             9
           </text>
         </g>
+        </YnwaShirt>
 
         <polygon
           points="548,206 568,202 612,300 498,306"
