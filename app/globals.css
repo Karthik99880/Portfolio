@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@property --color-lime { syntax: "<color>"; inherits: true; initial-value: #dcff70; }
+@property --color-leaf { syntax: "<color>"; inherits: true; initial-value: #4fd67a; }
+@property --color-accent { syntax: "<color>"; inherits: true; initial-value: #1f7a3d; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { transition: --color-lime 0.8s ease, --color-leaf 0.8s ease, --color-accent 0.8s ease; }
+}
+
 @theme inline {
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-body: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;

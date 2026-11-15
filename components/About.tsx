@@ -2,8 +2,12 @@ import { about } from "@/lib/content";
 import { Section, SectionHead } from "@/components/Section";
 import { RevealGroup, RevealItem } from "@/components/Reveal";
 import ScrollHighlight from "@/components/ScrollHighlight";
+import { getNextLiverpoolMatch } from "@/lib/kop";
 
-export default function About() {
+export default async function About() {
+  const match = await getNextLiverpoolMatch();
+  const at = about.facts.findIndex((f) => f.label === "Off-hours") + 1;
+  const facts = match ? [...about.facts.slice(0, at), { label: "Next match", value: match }, ...about.facts.slice(at)] : about.facts;
   return (
     <Section id="about">
       <div className="grid grid-cols-1 items-start gap-x-14 gap-y-10 min-[900px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
@@ -12,7 +16,7 @@ export default function About() {
           <ScrollHighlight text={about.paragraph} className="m-0 mt-6 max-w-[36ch] font-body text-[clamp(18px,1.7vw,19px)] leading-[1.55] text-ink" />
         </div>
         <RevealGroup as="ul" step={0.07} className="m-0 list-none rounded-[6px] border border-line bg-paper px-7 py-1">
-          {about.facts.map((f) => (
+          {facts.map((f: (typeof about.facts)[number]) => (
             <RevealItem
               as="li"
               key={f.label}
