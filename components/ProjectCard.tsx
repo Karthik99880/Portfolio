@@ -8,6 +8,7 @@ import { PitWallToy } from "@/components/toys/PitWallToy";
 import { OrbToy } from "@/components/toys/OrbToy";
 import { SdxlToy } from "@/components/toys/SdxlToy";
 import { ChatToy } from "@/components/toys/ChatToy";
+import { KopToy } from "@/components/toys/KopToy";
 import styles from "./Projects.module.css";
 
 function Toy({ project, active, reduced }: { project: Project; active: boolean; reduced: boolean }) {
@@ -21,6 +22,8 @@ function Toy({ project, active, reduced }: { project: Project; active: boolean; 
       return <SdxlToy active={active} reduced={reduced} url={visual.url} />;
     case "cipher":
       return <ChatToy active={active} reduced={reduced} clients={visual.clients} initial={visual.plaintext} />;
+    case "kop":
+      return <KopToy reduced={reduced} />;
   }
 }
 

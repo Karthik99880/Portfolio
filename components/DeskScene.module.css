@@ -83,7 +83,80 @@
   96% { transform: scaleY(0.1); }
 }
 
+.dashCursor {
+  transform: translate(372px, 190px);
+  animation: dashCursor 10s ease-in-out infinite;
+}
+.dashRow {
+  transform-box: fill-box;
+  animation: dashRow 10s ease-in-out infinite;
+}
+.dashLine {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  animation: dashLine 10s ease-in-out infinite;
+}
+.dashBlock {
+  transform-box: fill-box;
+  animation: dashBlock 10s ease-in-out infinite;
+}
+@keyframes dashCursor {
+  0% { transform: translate(350px, 236px); }
+  12%, 28% { transform: translate(372px, 190px); }
+  38%, 56% { transform: translate(432px, 226px); }
+  66%, 88% { transform: translate(440px, 168px); }
+  100% { transform: translate(350px, 236px); }
+}
+@keyframes dashRow {
+  0%, 14% { transform: translateX(9px); }
+  26%, 90% { transform: translateX(0); }
+  98%, 100% { transform: translateX(9px); }
+}
+@keyframes dashLine {
+  0%, 38% { stroke-dashoffset: 100; opacity: 1; }
+  54%, 90% { stroke-dashoffset: 0; opacity: 1; }
+  97% { stroke-dashoffset: 0; opacity: 0; }
+  97.5%, 100% { stroke-dashoffset: 100; opacity: 0; }
+}
+@keyframes dashBlock {
+  0%, 66% { transform: translateX(-14px); opacity: 0; }
+  78%, 90% { transform: translateX(0); opacity: 1; }
+  97%, 100% { transform: translateX(0); opacity: 0; }
+}
+
+.prog {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0.4);
+  animation: prog 36s linear infinite;
+}
+@keyframes prog {
+  from { transform: scaleX(0.02); }
+  to { transform: scaleX(1); }
+}
+.lvl {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transform: scaleY(0.55);
+  animation: lvl 3.2s ease-in-out infinite;
+}
+.lvl1 { animation-duration: 2.8s; }
+.lvl2 { animation-duration: 3.4s; animation-delay: -0.7s; }
+.lvl3 { animation-duration: 3s; animation-delay: -1.5s; }
+.lvl4 { animation-duration: 3.6s; animation-delay: -2.1s; }
+.lvl5 { animation-duration: 2.6s; animation-delay: -1s; }
+@keyframes lvl {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(0.95); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .dashCursor,
+  .dashRow,
+  .dashLine,
+  .dashBlock,
+  .prog,
+  .lvl,
   .bob,
   .cursor,
   .glow,

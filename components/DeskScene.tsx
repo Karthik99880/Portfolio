@@ -32,12 +32,13 @@ export default function DeskScene({
       strokeLinejoin="round"
     >
       <title id="desk-scene-title">
-        Karthik at his desk at dusk: headphones on, code on the monitor,
-        Hyderabad through the window
+        Karthik at his desk at dusk: headphones on, a dashboard taking shape on
+        the monitor, Hyderabad through the window
       </title>
       <desc id="desk-scene-desc">
         Illustration of Karthik at a dual-monitor desk with a lamp, a globe, a
-        mug of coffee and a plant on the windowsill.
+        mug of coffee and a plant on the windowsill, a red scarf on the chair
+        and a red Firmino number 9 football shirt on the wall.
       </desc>
 
       <defs>
@@ -226,6 +227,24 @@ export default function DeskScene({
           SILVER ARROWS
         </text>
 
+        <circle cx="400" cy="43" r="1.6" fill="#181511" stroke="none" />
+        <path d="M400 56 L400 52 Q400 46 395 47" strokeWidth="1.6" />
+        <path d="M400 56 L378 68 M400 56 L422 68 M378 68 L422 68" strokeWidth="1.6" />
+        <path
+          d="M391 64 L376 69 L362 84 L370 92 L378 86 L378 118 L422 118 L422 86 L430 92 L438 84 L424 69 L409 64 Q400 72 391 64 Z"
+          fill="#c8102e"
+          strokeWidth="1.8"
+        />
+        <path d="M391 64.5 Q400 68 409 64.5" stroke="#fbfdf5" strokeWidth="2.4" />
+        <g style={{ fontFamily: "var(--font-mono)" }} textAnchor="middle" fill="#fbfdf5" stroke="none" fontWeight="700">
+          <text x="400" y="83" fontSize="5.5" letterSpacing="0.6">
+            FIRMINO
+          </text>
+          <text x="400" y="108" fontSize="22">
+            9
+          </text>
+        </g>
+
         <polygon
           points="548,206 568,202 612,300 498,306"
           fill="#dcff70"
@@ -291,89 +310,53 @@ export default function DeskScene({
           <circle cx="316" cy="150.5" r="1.8" />
           <circle cx="322" cy="150.5" r="1.8" />
         </g>
-        <g
-          style={{ fontFamily: "var(--font-mono)" }}
-          fontSize="6.4"
-          stroke="none"
-        >
-          <text x="310" y="168" fill="#716c60">
-            1
-          </text>
-          <text x="320" y="168" fill="#4fd67a">
-            const
-          </text>
-          <text x="342" y="168" fill="#fbfdf5">
-            karthik = {"{"}
-          </text>
-          <text x="310" y="179" fill="#716c60">
-            2
-          </text>
-          <text x="328" y="179" fill="#fbfdf5">
-            role:
-          </text>
-          <text x="352" y="179" fill="#dcff70">
-            {'"full-stack + AI"'}
-          </text>
-          <text x="414" y="179" fill="#fbfdf5">
-            ,
-          </text>
-          <text x="310" y="190" fill="#716c60">
-            3
-          </text>
-          <text x="328" y="190" fill="#fbfdf5">
-            tests:
-          </text>
-          <text x="356" y="190" fill="#dcff70">
-            560
-          </text>
-          <text x="370" y="190" fill="#fbfdf5">
-            ,
-          </text>
-          <text x="310" y="201" fill="#716c60">
-            4
-          </text>
-          <text x="328" y="201" fill="#fbfdf5">
-            based:
-          </text>
-          <text x="356" y="201" fill="#dcff70">
-            {'"Hyderabad"'}
-          </text>
-          <text x="402" y="201" fill="#fbfdf5">
-            ,
-          </text>
-          <text x="310" y="212" fill="#716c60">
-            5
-          </text>
-          <text x="328" y="212" fill="#fbfdf5">
-            open:
-          </text>
-          <text x="352" y="212" fill="#4fd67a">
-            true
-          </text>
-          <text x="310" y="223" fill="#716c60">
-            6
-          </text>
-          <text x="320" y="223" fill="#fbfdf5">
-            {"}"};
-          </text>
-          <text x="310" y="238" fill="#716c60">
-            7
-          </text>
-          <g className={styles.type}>
-            <text x="320" y="238" fill="#a39c90">
-              {"// ship it, then test it"}
-            </text>
+        <g stroke="none">
+          <rect x="303" y="156" width="170" height="93" fill="#f2ece0" />
+          <rect x="311" y="162" width="84" height="10" fill="#181511" transform="skewX(-12) translate(34 0)" />
+          <rect x="311" y="175" width="52" height="2" fill="#a39c90" />
+          {[195, 206, 217, 228].map((y, i) => (
+            <g key={y}>
+              <rect x="311" y={y} width="74" height="8" fill="#e3dccb" />
+              <rect x="314" y={y + 2} width="3" height="4" fill="#181511" />
+              <rect x="321" y={y + 2.8} width={28 - i * 2} height="2.4" fill="#716c60" />
+              <rect x="373" y={y + 2.4} width="8" height="3.2" fill="#181511" />
+            </g>
+          ))}
+          <g className={styles.dashRow}>
+            <rect x="311" y="184" width="74" height="8" fill="#c8102e" />
+            <rect x="314" y="186" width="3" height="4" fill="#fbfdf5" />
+            <rect x="321" y="186.8" width="30" height="2.4" fill="#fbfdf5" />
+            <rect x="373" y="186.4" width="8" height="3.2" fill="#fbfdf5" />
           </g>
+          <rect x="394" y="181" width="71" height="62" fill="#fbf8f0" />
         </g>
-        <rect
-          className={styles.cursor}
-          x="420"
-          y="232"
-          width="2.5"
-          height="8"
-          fill="#dcff70"
-          stroke="none"
+        <g stroke="#d6cdb8" strokeWidth=".6">
+          <rect x="394" y="181" width="71" height="62" />
+          <line x1="394" y1="196" x2="465" y2="196" />
+          <line x1="394" y1="211" x2="465" y2="211" />
+          <line x1="394" y1="226" x2="465" y2="226" />
+        </g>
+        <polyline
+          className={styles.dashLine}
+          pathLength={100}
+          points="398,238 409,229 419,233 430,220 441,214 452,216 461,199"
+          stroke="#c8102e"
+          strokeWidth="1.6"
+          strokeLinecap="butt"
         />
+        <g className={styles.dashBlock} stroke="none">
+          <rect x="403" y="162" width="62" height="14" fill="#4fd67a" />
+          <rect x="407" y="166" width="30" height="2.4" fill="#181511" />
+          <rect x="407" y="170.5" width="20" height="2" fill="#1f7a3d" />
+        </g>
+        <g className={styles.dashCursor}>
+          <path
+            d="M0 0 L0 9 L2.3 6.8 L4 10.6 L5.6 9.9 L3.9 6.2 L7 6 Z"
+            fill="#181511"
+            stroke="#fbfdf5"
+            strokeWidth=".7"
+          />
+        </g>
         <rect
           x="378"
           y="262"
@@ -430,19 +413,24 @@ export default function DeskScene({
             stroke="none"
           />
           <g stroke="none">
-            <rect
-              x="11"
-              y="20"
-              width="22"
-              height="22"
-              rx="2"
-              fill="#4fd67a"
-              opacity=".5"
-            />
-            <rect x="38" y="20" width="27" height="4" rx="2" fill="#181511" />
-            <rect x="38" y="28" width="20" height="4" rx="2" fill="#716c60" />
-            <rect x="38" y="36" width="24" height="4" rx="2" fill="#1f7a3d" />
-            <rect x="11" y="48" width="54" height="4" rx="2" fill="#e3e8d2" />
+            <rect x="11" y="20" width="22" height="22" rx="2" fill="#dcff70" />
+            <path d="M11 42 L11 34 C 17 30, 22 33, 24 28 C 27 31, 30 33, 33 32 L33 42 Z" fill="#4fd67a" />
+            <circle cx="26" cy="27" r="3" fill="#fbfdf5" />
+            <rect x="38" y="36" width="27" height="3" rx="1.5" fill="#e3e8d2" />
+            <rect className={styles.prog} x="38" y="36" width="27" height="3" rx="1.5" fill="#1f7a3d" />
+            {[38, 44.5, 51, 57.5, 62].map((x, i) => (
+              <rect
+                key={x}
+                className={`${styles.lvl} ${styles[`lvl${i + 1}`]}`}
+                x={x}
+                y="45"
+                width="3.4"
+                height="13"
+                rx="1"
+                fill="#4fd67a"
+              />
+            ))}
+            <path d="M18 48 L18 56 L25 52 Z" fill="#181511" />
           </g>
         </g>
         <polygon points="478,272 566,266 574,284 470,290" fill="#fbfdf5" />
@@ -606,6 +594,14 @@ export default function DeskScene({
               strokeWidth="1.4"
               fill="#3cb865"
             />
+            <g strokeWidth="1.6">
+              <path d="M207 350 L222 350 L223 382 L208 382 Z" fill="#c8102e" />
+              <g stroke="none" fill="#fbfdf5">
+                <rect x="208" y="368" width="15" height="2" />
+                <rect x="208" y="373" width="15" height="2" />
+              </g>
+              <path d="M211 382 L211 389 M215 382 L215 390 M219 382 L219 389" strokeWidth="1.4" />
+            </g>
             <polyline points="209,266 200,304 236,332" strokeWidth="17" />
             <polyline
               points="209,266 200,304 236,332"
@@ -761,6 +757,15 @@ export default function DeskScene({
               stroke="#3f3a32"
               strokeWidth="1.4"
             />
+            <g strokeWidth="1.6">
+              <path d="M219 318 Q256 312 293 318 L294 333 Q256 327 218 333 Z" fill="#c8102e" />
+              <path d="M268 331 L286 332 L287 366 L270 366 Z" fill="#c8102e" />
+              <g stroke="none" fill="#fbfdf5">
+                <rect x="270" y="354" width="17" height="2" />
+                <rect x="270" y="359" width="17" height="2" />
+              </g>
+              <path d="M272 366 L272 373 M276 366 L276 374 M280 366 L280 373 M284 366 L284 374" strokeWidth="1.4" />
+            </g>
           </g>
         )}
         <rect

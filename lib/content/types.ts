@@ -119,7 +119,11 @@ export interface CipherVisual {
   plaintext: string;
 }
 
-export type ProjectVisual = PitWallVisual | OrbVisual | SdxlVisual | CipherVisual;
+export interface KopVisual {
+  kind: "kop";
+}
+
+export type ProjectVisual = PitWallVisual | OrbVisual | SdxlVisual | CipherVisual | KopVisual;
 
 export interface Project {
   slug: string;

@@ -2,7 +2,7 @@ import type { Project, SectionHeading } from "./types";
 
 export const projectsHeading: SectionHeading = {
   kicker: "selected work",
-  heading: "Four things I built",
+  heading: "Five things I built",
 };
 
 // Résumé order, résumé wording, condensed for a card, never embellished.
@@ -71,5 +71,16 @@ export const projects: Project[] = [
       clients: ["client-01", "client-02"],
       plaintext: "meet at the paddock, 6:30",
     },
+  },
+  {
+    slug: "kop-end",
+    name: "The Kop End",
+    eyebrow: "Liverpool dashboard · live",
+    summary:
+      "A Liverpool FC dashboard, sibling to the Pit Wall: next match, form, table, fixtures, a points progression chart, the squad, a tactics board and a run-in simulator, on live data from football-data.org and BBC Sport.",
+    fact: "Motion · Lenis · TanStack Query · server-side API proxy",
+    tags: ["React", "TypeScript", "Vite"],
+    href: "https://kop-wall.vercel.app/",
+    visual: { kind: "kop" },
   },
 ];

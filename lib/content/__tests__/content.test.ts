@@ -16,9 +16,9 @@ describe("content integrity", () => {
     }
   });
 
-  it("lists the four résumé projects in résumé order with a visual each", () => {
-    expect(projects.map((p) => p.slug)).toEqual(["pit-wall", "ultron-orb-ui", "sdxl-studio", "encrypted-chat"]);
-    for (const p of projects) expect(["pitwall", "orb", "sdxl", "cipher"]).toContain(p.visual.kind);
+  it("lists the résumé projects in résumé order, then newer ones, with a visual each", () => {
+    expect(projects.map((p) => p.slug)).toEqual(["pit-wall", "ultron-orb-ui", "sdxl-studio", "encrypted-chat", "kop-end"]);
+    for (const p of projects) expect(["pitwall", "orb", "sdxl", "cipher", "kop"]).toContain(p.visual.kind);
   });
 
   it("keeps the experience bullets dev-first, QA last", () => {
