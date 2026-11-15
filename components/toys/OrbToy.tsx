@@ -80,12 +80,12 @@ export function OrbToy({ active, reduced }: { active: boolean; reduced: boolean 
       <div className="absolute left-5 top-5 font-mono text-[10.5px] tracking-[0.14em] text-[#716c60] sm:left-7 sm:top-7">HUD · EARTH</div>
       <div
         className="absolute right-5 top-5 font-mono text-[10.5px] tracking-[0.1em] sm:right-7 sm:top-7"
-        style={{ color: drag ? "#dcff70" : "#716c60" }}
+        style={{ color: drag ? "var(--color-lime)" : "#716c60" }}
       >
         {drag ? "PINCH · SPINNING" : "OPEN HAND · IDLE"}
       </div>
       <svg viewBox="0 0 400 350" className="absolute inset-0 block h-full w-full" aria-hidden="true">
-        <circle cx={CX} cy={CY} r={R} fill="#0f1a13" stroke="#1f7a3d" />
+        <circle cx={CX} cy={CY} r={R} fill="#0f1a13" stroke="var(--color-accent)" />
         {LATS.map((d) => {
           const r = (d * Math.PI) / 180;
           return (
@@ -96,19 +96,19 @@ export function OrbToy({ active, reduced }: { active: boolean; reduced: boolean 
               rx={R * Math.cos(r)}
               ry={R * Math.cos(r) * 0.16}
               fill="none"
-              stroke="#1f7a3d"
+              stroke="var(--color-accent)"
               opacity={0.7}
             />
           );
         })}
         {meridians.map((c, i) => (
-          <ellipse key={i} cx={CX} cy={CY} rx={Math.abs(c * R)} ry={R} fill="none" stroke="#4fd67a" opacity={0.25 + 0.6 * Math.abs(c)} />
+          <ellipse key={i} cx={CX} cy={CY} rx={Math.abs(c * R)} ry={R} fill="none" stroke="var(--color-leaf)" opacity={0.25 + 0.6 * Math.abs(c)} />
         ))}
         {visible ? (
           <g transform={`translate(${px} ${py})`}>
-            <circle r={12} fill="#dcff70" opacity={0.25} />
-            <circle r={4.5} fill="#dcff70" />
-            <text x={12} y={-8} fontFamily="var(--font-mono)" fontSize={11} fill="#dcff70">HYDERABAD · 31°</text>
+            <circle r={12} fill="var(--color-lime)" opacity={0.25} />
+            <circle r={4.5} fill="var(--color-lime)" />
+            <text x={12} y={-8} fontFamily="var(--font-mono)" fontSize={11} fill="var(--color-lime)">HYDERABAD · 31°</text>
           </g>
         ) : null}
       </svg>

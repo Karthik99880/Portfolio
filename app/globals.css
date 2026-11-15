@@ -3,9 +3,13 @@
 @property --color-lime { syntax: "<color>"; inherits: true; initial-value: #dcff70; }
 @property --color-leaf { syntax: "<color>"; inherits: true; initial-value: #4fd67a; }
 @property --color-accent { syntax: "<color>"; inherits: true; initial-value: #1f7a3d; }
+@property --color-leaf-deep { syntax: "<color>"; inherits: true; initial-value: #3cb865; }
+@property --color-canvas { syntax: "<color>"; inherits: true; initial-value: #f5f9e8; }
+@property --color-paper { syntax: "<color>"; inherits: true; initial-value: #fbfdf5; }
+@property --color-line { syntax: "<color>"; inherits: true; initial-value: #d5dbc3; }
 
 @media (prefers-reduced-motion: no-preference) {
-  html { transition: --color-lime 0.8s ease, --color-leaf 0.8s ease, --color-accent 0.8s ease; }
+  html { transition: --color-lime 0.8s ease, --color-leaf 0.8s ease, --color-accent 0.8s ease, --color-leaf-deep 0.8s ease, --color-canvas 0.8s ease, --color-paper 0.8s ease, --color-line 0.8s ease; }
 }
 
 @theme inline {
@@ -26,6 +30,7 @@
   --color-void: #0c0a08;
   --color-lime: #dcff70;
   --color-leaf: #4fd67a;
+  --color-leaf-deep: #3cb865;
 
   --color-paper-dark: #15120f;
   --color-line-dark: #2a2621;
@@ -108,7 +113,7 @@
     --color-muted: var(--color-muted-dark);
     --color-dim: #6b645a;
     --color-canvas: var(--color-void);
-    --color-accent: #4fd67a;
+    --color-accent: var(--color-leaf);
     background: var(--color-void);
     color: var(--color-ink);
   }

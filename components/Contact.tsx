@@ -115,7 +115,7 @@ export default function Contact() {
   const errField = localErr ?? serverField ?? null;
   const errText = errField ? contact.errors[errField] : contact.failure;
   const bd = (f: ContactField) => ({ borderColor: errField === f && phase === "err" ? ERR : "#2f2b25" });
-  const dot = phase === "err" ? ERR : phase === "tx" ? "#dcff70" : "#4fd67a";
+  const dot = phase === "err" ? ERR : phase === "tx" ? "var(--color-lime)" : "var(--color-leaf)";
 
   const bars = Array.from({ length: BARS }, (_, i) => {
     if (phase === "tx" && !reduced) {
@@ -130,7 +130,7 @@ export default function Contact() {
   if (phase === "idle") log.push({ who: contact.pitWall, color: "#716c60", text: contact.idleLine, tone: "#8d877a", delay: 0 });
   if (phase === "tx" || phase === "done")
     log.push({ who: `${sent.name} →`, color: sentTy.color, text: `“${sent.message}”`, tone: "#fbfdf5", quote: true, delay: 0 });
-  if (phase === "done") log.push({ who: `${contact.pitWall} →`, color: "#dcff70", text: typed || "…", tone: "#dcff70", delay: 0.3 });
+  if (phase === "done") log.push({ who: `${contact.pitWall} →`, color: "var(--color-lime)", text: typed || "…", tone: "var(--color-lime)", delay: 0.3 });
   if (phase === "err") log.push({ who: contact.lost, color: ERR, text: errText, tone: "#ffb3a8", delay: 0 });
 
   return (
@@ -274,9 +274,9 @@ export default function Contact() {
                 type="submit"
                 disabled={pending}
                 className="inline-flex min-h-[52px] flex-none cursor-pointer items-center gap-3 rounded-full border-0 px-[26px] font-mono text-[12px] tracking-[0.14em] uppercase transition-[background-color,color,transform] duration-200 active:scale-[0.97] disabled:cursor-default"
-                style={{ background: phase === "tx" ? "#dcff70" : phase === "done" ? "#1d1a16" : "#fbfdf5", color: phase === "done" ? "#fbfdf5" : "#0c0a08" }}
+                style={{ background: phase === "tx" ? "var(--color-lime)" : phase === "done" ? "#1d1a16" : "#fbfdf5", color: phase === "done" ? "#fbfdf5" : "#0c0a08" }}
               >
-                <span aria-hidden="true" className="size-[9px] rounded-full" style={{ background: phase === "tx" ? "#0c0a08" : phase === "err" ? ERR : "#4fd67a" }} />
+                <span aria-hidden="true" className="size-[9px] rounded-full" style={{ background: phase === "tx" ? "#0c0a08" : phase === "err" ? ERR : "var(--color-leaf)" }} />
                 {contact.transmit[phase]}
               </button>
               <div aria-hidden="true" className="flex h-10 min-w-0 flex-1 items-center gap-[3px] overflow-hidden">

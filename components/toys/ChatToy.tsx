@@ -26,7 +26,7 @@ export function ChatToy({ active, reduced, clients, initial }: ChatToyProps) {
     <div className="flex flex-1 flex-col gap-3.5 p-5 sm:p-7">
       <span className="font-mono text-[10.5px] tracking-[0.14em] text-[#716c60]">RAW TCP · TWO CLIENTS · PACKET {pkt}</span>
       <div className="rounded-[6px] border border-[#2a2621] p-4">
-        <label htmlFor={id} className="font-mono text-[10.5px] tracking-[0.1em] text-[#4fd67a]">
+        <label htmlFor={id} className="font-mono text-[10.5px] tracking-[0.1em] text-leaf">
           {clients[0].toUpperCase()} · TYPE HERE
         </label>
         <input
@@ -44,7 +44,7 @@ export function ChatToy({ active, reduced, clients, initial }: ChatToyProps) {
         </div>
       </div>
       <div className="rounded-[6px] border border-[#2a2621] p-4">
-        <div className="font-mono text-[10.5px] tracking-[0.1em] text-[#4fd67a]">{clients[1].toUpperCase()} · DECRYPTED</div>
+        <div className="font-mono text-[10.5px] tracking-[0.1em] text-leaf">{clients[1].toUpperCase()} · DECRYPTED</div>
         <div className="mt-2.5 min-h-[22px] break-words text-[16px]">{msg}</div>
       </div>
       <p className="mt-auto font-mono text-[10.5px] text-[#716c60]">

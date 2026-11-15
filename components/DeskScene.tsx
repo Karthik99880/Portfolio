@@ -107,7 +107,7 @@ export default function DeskScene({
             y="56"
             width="140"
             height="70"
-            fill="#dcff70"
+            fill="var(--color-lime)"
             stroke="none"
           />
           <circle
@@ -162,18 +162,18 @@ export default function DeskScene({
         <rect x="44" y="56" width="140" height="162" rx="4" />
         <line x1="114" y1="56" x2="114" y2="218" />
         <rect x="32" y="222" width="164" height="8" rx="2" fill="#fbfdf5" />
-        <path d="M150 222 L153 204 L169 204 L172 222 Z" fill="#1f7a3d" />
+        <path d="M150 222 L153 204 L169 204 L172 222 Z" fill="var(--color-accent)" />
         <path
           d="M161 204 C 152 192, 150 182, 154 172 C 162 180, 164 192, 161 204 Z"
-          fill="#4fd67a"
+          fill="var(--color-leaf)"
         />
         <path
           d="M161 204 C 170 194, 178 188, 182 178 C 172 178, 164 190, 161 204 Z"
-          fill="#4fd67a"
+          fill="var(--color-leaf)"
         />
         <path
           d="M161 204 C 158 196, 146 194, 140 188 C 146 186, 156 192, 161 204 Z"
-          fill="#4fd67a"
+          fill="var(--color-leaf)"
         />
 
         <rect x="220" y="60" width="128" height="80" rx="3" fill="#fbfdf5" />
@@ -186,11 +186,11 @@ export default function DeskScene({
         </g>
         <path
           d="M262 92 Q 290 70 322 82"
-          stroke="#1f7a3d"
+          stroke="var(--color-accent)"
           strokeWidth="1.2"
           strokeDasharray="3 3"
         />
-        <g fill="#1f7a3d" stroke="none">
+        <g fill="var(--color-accent)" stroke="none">
           <circle cx="262" cy="92" r="2.6" />
           <circle cx="322" cy="82" r="2.6" />
         </g>
@@ -213,8 +213,8 @@ export default function DeskScene({
           fill="#c7cdb5"
           stroke="none"
         />
-        <circle cx="498" cy="104" r="6" fill="#4fd67a" stroke="none" />
-        <circle cx="554" cy="104" r="6" fill="#4fd67a" stroke="none" />
+        <circle cx="498" cy="104" r="6" fill="var(--color-leaf)" stroke="none" />
+        <circle cx="554" cy="104" r="6" fill="var(--color-leaf)" stroke="none" />
         <text
           x="524"
           y="117"
@@ -222,7 +222,7 @@ export default function DeskScene({
           fontSize="5"
           letterSpacing="1"
           textAnchor="middle"
-          fill="#dcff70"
+          fill="var(--color-lime)"
           stroke="none"
         >
           SILVER ARROWS
@@ -250,7 +250,7 @@ export default function DeskScene({
 
         <polygon
           points="548,206 568,202 612,300 498,306"
-          fill="#dcff70"
+          fill="var(--color-lime)"
           opacity=".35"
           stroke="none"
           className={styles.glow}
@@ -260,7 +260,7 @@ export default function DeskScene({
           cy="252"
           rx="150"
           ry="22"
-          fill="#4fd67a"
+          fill="var(--color-leaf)"
           opacity=".22"
           stroke="none"
           className={styles.glow}
@@ -348,9 +348,9 @@ export default function DeskScene({
           strokeLinecap="butt"
         />
         <g className={styles.dashBlock} stroke="none">
-          <rect x="403" y="162" width="62" height="14" fill="#4fd67a" />
+          <rect x="403" y="162" width="62" height="14" fill="var(--color-leaf)" />
           <rect x="407" y="166" width="30" height="2.4" fill="#181511" />
-          <rect x="407" y="170.5" width="20" height="2" fill="#1f7a3d" />
+          <rect x="407" y="170.5" width="20" height="2" fill="var(--color-accent)" />
         </g>
         <g className={styles.dashCursor}>
           <path
@@ -381,7 +381,7 @@ export default function DeskScene({
           y="128"
           width="22"
           height="18"
-          fill="#dcff70"
+          fill="var(--color-lime)"
           transform="rotate(8 463 137)"
         />
         <text
@@ -416,11 +416,11 @@ export default function DeskScene({
             stroke="none"
           />
           <g stroke="none">
-            <rect x="11" y="20" width="22" height="22" rx="2" fill="#dcff70" />
-            <path d="M11 42 L11 34 C 17 30, 22 33, 24 28 C 27 31, 30 33, 33 32 L33 42 Z" fill="#4fd67a" />
+            <rect x="11" y="20" width="22" height="22" rx="2" fill="var(--color-lime)" />
+            <path d="M11 42 L11 34 C 17 30, 22 33, 24 28 C 27 31, 30 33, 33 32 L33 42 Z" fill="var(--color-leaf)" />
             <circle cx="26" cy="27" r="3" fill="#fbfdf5" />
             <rect x="38" y="36" width="27" height="3" rx="1.5" fill="#e3e8d2" />
-            <rect className={styles.prog} x="38" y="36" width="27" height="3" rx="1.5" fill="#1f7a3d" />
+            <rect className={styles.prog} x="38" y="36" width="27" height="3" rx="1.5" fill="var(--color-accent)" />
             {[38, 44.5, 51, 57.5, 62].map((x, i) => (
               <rect
                 key={x}
@@ -430,7 +430,7 @@ export default function DeskScene({
                 width="3.4"
                 height="13"
                 rx="1"
-                fill="#4fd67a"
+                fill="var(--color-leaf)"
               />
             ))}
             <path d="M18 48 L18 56 L25 52 Z" fill="#181511" />
@@ -451,22 +451,22 @@ export default function DeskScene({
           strokeWidth="2.6"
         />
         <g transform="translate(564 194) rotate(30)">
-          <polygon points="-11,0 11,0 17,16 -17,16" fill="#1f7a3d" />
-          <ellipse cx="0" cy="16" rx="15" ry="3" fill="#dcff70" stroke="none" />
+          <polygon points="-11,0 11,0 17,16 -17,16" fill="var(--color-accent)" />
+          <ellipse cx="0" cy="16" rx="15" ry="3" fill="var(--color-lime)" stroke="none" />
         </g>
-        <rect x="540" y="258" width="38" height="8" rx="1" fill="#4fd67a" />
+        <rect x="540" y="258" width="38" height="8" rx="1" fill="var(--color-leaf)" />
         <rect x="543" y="250" width="32" height="8" rx="1" fill="#fbfdf5" />
-        <rect x="541" y="242" width="34" height="8" rx="1" fill="#1f7a3d" />
+        <rect x="541" y="242" width="34" height="8" rx="1" fill="var(--color-accent)" />
 
         <circle cx="190" cy="244" r="13" fill="#fbfdf5" />
         <path
           d="M182 240 q4 -6 10 -3 q2 5 -3 8 q-6 1 -7 -5 z"
-          fill="#4fd67a"
+          fill="var(--color-leaf)"
           stroke="none"
         />
         <path
           d="M191 248 q5 -2 7 3 q-2 4 -6 2 z"
-          fill="#4fd67a"
+          fill="var(--color-leaf)"
           stroke="none"
         />
         <path d="M176 244 A14 14 0 0 0 190 258" stroke="#716c60" />
@@ -479,7 +479,7 @@ export default function DeskScene({
           fill="#181511"
           stroke="none"
         />
-        <rect x="206" y="270" width="17" height="18" rx="3" fill="#1f7a3d" />
+        <rect x="206" y="270" width="17" height="18" rx="3" fill="var(--color-accent)" />
         <path d="M223 274 a4.5 4.5 0 0 1 0 9" />
         <path
           className={styles.steam}
@@ -585,7 +585,7 @@ export default function DeskScene({
             />
             <path
               d="M206 276 C206 256 222 248 240 248 L272 248 C290 248 306 256 306 276 L308 350 L204 350 Z"
-              fill="#4fd67a"
+              fill="var(--color-leaf)"
             />
             <path d="M240 250 Q256 268 272 250" strokeWidth="1.4" />
             <line x1="250" y1="262" x2="249" y2="280" strokeWidth="1.4" />
@@ -595,7 +595,7 @@ export default function DeskScene({
             <path
               d="M228 318 L284 318 L290 342 L222 342 Z"
               strokeWidth="1.4"
-              fill="#3cb865"
+              fill="var(--color-leaf-deep)"
             />
             <g strokeWidth="1.6">
               <path d="M207 350 L222 350 L223 382 L208 382 Z" fill="#c8102e" />
@@ -608,22 +608,22 @@ export default function DeskScene({
             <polyline points="209,266 200,304 236,332" strokeWidth="17" />
             <polyline
               points="209,266 200,304 236,332"
-              stroke="#4fd67a"
+              stroke="var(--color-leaf)"
               strokeWidth="13.5"
             />
             <ellipse cx="239" cy="333" rx="8" ry="6" fill="#e8c9a8" />
             <polyline points="303,266 340,252" strokeWidth="17" />
             <polyline
               points="303,266 340,252"
-              stroke="#4fd67a"
+              stroke="var(--color-leaf)"
               strokeWidth="13.5"
             />
-            <circle cx="340" cy="252" r="7.6" fill="#4fd67a" stroke="none" />
+            <circle cx="340" cy="252" r="7.6" fill="var(--color-leaf)" stroke="none" />
             <g className={`${styles.fore} ${waving ? styles.waving : ""}`}>
               <polyline points="340,252 348,212" strokeWidth="17" />
               <polyline
                 points="340,252 348,212"
-                stroke="#4fd67a"
+                stroke="var(--color-leaf)"
                 strokeWidth="13.5"
               />
               <path
@@ -643,11 +643,11 @@ export default function DeskScene({
             />
             <path
               d="M235 203 C235 178 277 178 277 203"
-              stroke="#1f7a3d"
+              stroke="var(--color-accent)"
               strokeWidth="4.5"
             />
-            <ellipse cx="236" cy="211" rx="5" ry="9.5" fill="#1f7a3d" />
-            <ellipse cx="276" cy="211" rx="5" ry="9.5" fill="#1f7a3d" />
+            <ellipse cx="236" cy="211" rx="5" ry="9.5" fill="var(--color-accent)" />
+            <ellipse cx="276" cy="211" rx="5" ry="9.5" fill="var(--color-accent)" />
             <g fill="#181511" stroke="none">
               <ellipse
                 className={styles.blink}
@@ -685,13 +685,13 @@ export default function DeskScene({
             <polyline points="214,264 202,300 250,286" strokeWidth="17" />
             <polyline
               points="214,264 202,300 250,286"
-              stroke="#4fd67a"
+              stroke="var(--color-leaf)"
               strokeWidth="13.5"
             />
             <polyline points="298,264 322,300 352,286" strokeWidth="17" />
             <polyline
               points="298,264 322,300 352,286"
-              stroke="#4fd67a"
+              stroke="var(--color-leaf)"
               strokeWidth="13.5"
             />
             <ellipse
@@ -712,11 +712,11 @@ export default function DeskScene({
             />
             <path
               d="M206 274 C206 256 222 248 240 248 L272 248 C290 248 306 256 306 274 L306 312 L206 312 Z"
-              fill="#4fd67a"
+              fill="var(--color-leaf)"
             />
             <path
               d="M214 262 C224 270 240 266 248 252"
-              stroke="#3cb865"
+              stroke="var(--color-leaf-deep)"
               strokeWidth="1.4"
             />
             <path d="M244 250 Q256 258 268 250" strokeWidth="1.4" />
@@ -724,11 +724,11 @@ export default function DeskScene({
             <path d="M242 198 q6 -8 14 -6" stroke="#3a352d" strokeWidth="1.4" />
             <path
               d="M240 201 C239 180 273 178 274 199"
-              stroke="#1f7a3d"
+              stroke="var(--color-accent)"
               strokeWidth="4.5"
             />
-            <ellipse cx="240" cy="212" rx="8" ry="11.5" fill="#1f7a3d" />
-            <ellipse cx="276" cy="210" rx="3.5" ry="10" fill="#1f7a3d" />
+            <ellipse cx="240" cy="212" rx="8" ry="11.5" fill="var(--color-accent)" />
+            <ellipse cx="276" cy="210" rx="3.5" ry="10" fill="var(--color-accent)" />
             <path
               d="M240 223 C 236 240, 250 250, 262 262"
               stroke="#716c60"

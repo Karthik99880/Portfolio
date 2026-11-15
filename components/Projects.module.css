@@ -18,13 +18,13 @@
 }
 
 .chip[aria-selected="true"] {
-  background: #dcff70;
-  border-color: #dcff70;
+  background: var(--color-lime);
+  border-color: var(--color-lime);
   color: #181511;
 }
 
 .chip:focus-visible {
-  outline: 2px solid #dcff70;
+  outline: 2px solid var(--color-lime);
   outline-offset: 2px;
 }
 
@@ -48,7 +48,7 @@
 
 .stage :global(.toyfocus:focus-visible),
 .stage :global(.toybtn:focus-visible) {
-  outline: 2px solid #dcff70;
+  outline: 2px solid var(--color-lime);
   outline-offset: 2px;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .stage :global(.toybtn:hover:not(:disabled)) {
-  border-color: #dcff70;
+  border-color: var(--color-lime);
 }
 
 .stage :global(.toybtn:disabled) {
@@ -74,8 +74,8 @@
 }
 
 .stage :global(.toybtn--main) {
-  background: #dcff70;
-  border-color: #dcff70;
+  background: var(--color-lime);
+  border-color: var(--color-lime);
   color: #181511;
 }
 
@@ -133,7 +133,7 @@
   min-height: 44px;
   padding: 0 18px;
   border-radius: 6px;
-  background: #dcff70;
+  background: var(--color-lime);
   color: #181511;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -141,7 +141,7 @@
 }
 
 .visit:focus-visible {
-  outline: 2px solid #dcff70;
+  outline: 2px solid var(--color-lime);
   outline-offset: 3px;
 }
 

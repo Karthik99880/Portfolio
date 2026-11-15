@@ -3,8 +3,16 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 const WORD = "ynwa";
-const RED = { "--color-lime": "#ff6b7d", "--color-leaf": "#e8384f", "--color-accent": "#c8102e" };
-const HOLD_MS = 7000;
+const RED = {
+  "--color-lime": "#ff6b7d",
+  "--color-leaf": "#e8384f",
+  "--color-leaf-deep": "#a80d26",
+  "--color-accent": "#c8102e",
+  "--color-canvas": "#fbeceb",
+  "--color-paper": "#fef6f5",
+  "--color-line": "#ecc9c6",
+};
+const HOLD_MS = 12000;
 const EVENT = "ynwa";
 const fire = () => window.dispatchEvent(new Event(EVENT));
 

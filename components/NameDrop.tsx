@@ -144,7 +144,7 @@ export default function NameDrop({ name, width }: { name: string; width?: number
       ) : null}
       <motion.span
         ref={tip}
-        className="absolute rounded-lg bg-void px-3 py-2 font-mono text-[13px] leading-none tracking-normal whitespace-nowrap text-[#dcff70]"
+        className="absolute rounded-lg bg-void px-3 py-2 font-mono text-[13px] leading-none tracking-normal whitespace-nowrap text-lime"
         style={{ left: spot ? spot.tx : 0, top: spot ? spot.ay + 12 : 0 }}
         initial={{ opacity: 0, y: 8 }}
         animate={stage === "look" ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}

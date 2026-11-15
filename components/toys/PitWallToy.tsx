@@ -23,8 +23,8 @@ export function PitWallToy({ image, href }: { image: ProjectImage; href: string 
       b: s.b + (leader ? 18 : 25),
     }));
   const rows = [
-    { name: "Leader", pts: a, color: "#4fd67a" },
-    { name: "Chaser", pts: b, color: "#dcff70" },
+    { name: "Leader", pts: a, color: "var(--color-leaf)" },
+    { name: "Chaser", pts: b, color: "var(--color-lime)" },
   ];
 
   return (
@@ -37,7 +37,7 @@ export function PitWallToy({ image, href }: { image: ProjectImage; href: string 
           href={href ?? image.src}
           target="_blank"
           rel="noopener noreferrer"
-          className="toyfocus hidden min-h-11 min-[900px]:min-h-0 shrink-0 items-center gap-2 font-mono text-[10.5px] text-[#a39c90] hover:text-[#dcff70] sm:flex"
+          className="toyfocus hidden min-h-11 min-[900px]:min-h-0 shrink-0 items-center gap-2 font-mono text-[10.5px] text-[#a39c90] hover:text-lime sm:flex"
         >
           <Image src={image.src} alt="" width={image.width} height={image.height} className="h-8 w-auto rounded-[3px]" />
           see the real thing
@@ -64,13 +64,13 @@ export function PitWallToy({ image, href }: { image: ProjectImage; href: string 
           max={10}
           value={races}
           onChange={(e) => set((s) => ({ ...s, races: Number(e.target.value) }))}
-          className="toyfocus h-11 min-w-0 flex-1 accent-[#4fd67a] min-[900px]:h-auto"
+          className="toyfocus h-11 min-w-0 flex-1 accent-leaf min-[900px]:h-auto"
         />
       </label>
       <div aria-live="polite">
         <div
           className="font-display text-[22px] font-semibold leading-tight sm:text-[24px]"
-          style={{ color: clinched ? "#dcff70" : "#fbfdf5" }}
+          style={{ color: clinched ? "var(--color-lime)" : "#fbfdf5" }}
         >
           {verdict}
         </div>

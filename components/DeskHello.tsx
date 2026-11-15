@@ -20,9 +20,9 @@ const popEase = { duration: 0.32, ease: [0.22, 1, 0.36, 1] } as const;
 const bubble = "absolute top-[2%] left-[40%] z-10 w-[min(252px,58%)] rounded-[14px] bg-ink px-[18px] py-4 text-paper";
 
 const padStyle: Record<ReactionGame, { bg: string; fg: string; ring: number }> = {
-  ready: { bg: "#dcff70", fg: "#0c0a08", ring: 10 },
+  ready: { bg: "var(--color-lime)", fg: "#0c0a08", ring: 10 },
   wait: { bg: "#2a2621", fg: "#8d877a", ring: 0 },
-  go: { bg: "#4fd67a", fg: "#0c0a08", ring: 22 },
+  go: { bg: "var(--color-leaf)", fg: "#0c0a08", ring: 22 },
   result: { bg: "#1d1a16", fg: "#fbfdf5", ring: 0 },
   early: { bg: "#3a1d18", fg: "#ffb3a8", ring: 0 },
 };

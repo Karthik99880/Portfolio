@@ -38,7 +38,7 @@ const SCENES: { label: string; bg: string; sub: CSSProperties }[] = [
       width: "76%",
       height: "46%",
       background:
-        "linear-gradient(90deg,#4fd67a 0 3%,transparent 3% 30%,#dcff70 30% 33%,transparent 33% 62%,#e8607a 62% 66%,transparent 66%)",
+        "linear-gradient(90deg,var(--color-leaf) 0 3%,transparent 3% 30%,var(--color-lime) 30% 33%,transparent 33% 62%,#e8607a 62% 66%,transparent 66%)",
       opacity: 0.8,
       filter: "blur(1px)",
     },
@@ -76,7 +76,7 @@ export function SdxlToy({ active, reduced, url }: { active: boolean; reduced: bo
                 aria-pressed={i === scene}
                 onClick={() => run(i)}
                 className="toybtn text-left"
-                style={i === scene ? { borderColor: "#dcff70", color: "#dcff70" } : undefined}
+                style={i === scene ? { borderColor: "var(--color-lime)", color: "var(--color-lime)" } : undefined}
               >
                 {p.label}
               </button>
@@ -111,7 +111,7 @@ export function SdxlToy({ active, reduced, url }: { active: boolean; reduced: bo
             <rect width="100%" height="100%" filter="url(#sdxl-noise)" />
           </svg>
           {up ? (
-            <div className="absolute bottom-2.5 right-2.5 rounded-[4px] bg-[#0c0a08] px-[7px] py-1 font-mono text-[10px] text-[#dcff70]">
+            <div className="absolute bottom-2.5 right-2.5 rounded-[4px] bg-[#0c0a08] px-[7px] py-1 font-mono text-[10px] text-lime">
               4096 × 4096
             </div>
           ) : null}

@@ -1,4 +1,4 @@
-export const LEAF = "#4fd67a";
+export const LEAF = "var(--color-leaf)";
 export const RIBBON_ID = "hero-ribbon";
 
 export function RibbonFar() {
